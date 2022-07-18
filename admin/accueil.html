@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<!-- Télécommunication et réseaux -->
+<!-- Systèmes et Réseaux Informatiques -->
+<!-- Génie Logiciel et Bases de Données -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="./assets/css/admin.css" />
+    <title>Internship - Admin</title>
+  </head>
+  <body class="light">
+    <main class="main">
+      <!-- Side Bar -->
+      <nav class="nav">
+        <h1 class="nav-logo">Intern<span>ship</span></h1>
+
+        <ul class="nav-list">
+          <li class="nav-item active">
+            <i class="ri-dashboard-line"></i>
+            <a href="#dashboard" class="nav-link">Tableau de bord</a>
+          </li>
+
+          <li class="nav-item">
+            <i class="ri-user-3-line"></i>
+            <a href="#student" class="nav-link">&Eacute;tudiant</a>
+          </li>
+
+          <li class="nav-item">
+            <i class="ri-user-voice-line"></i>
+            <a href="#teacher" class="nav-link">Professeur</a>
+          </li>
+
+          <li class="nav-item">
+            <i class="ri-file-user-line"></i>
+            <a href="#jury" class="nav-link">Jury</a>
+          </li>
+
+          <li class="nav-item">
+            <i class="ri-building-4-line"></i>
+            <a href="#company" class="nav-link">Entreprise</a>
+          </li>
+
+          <li class="nav-item">
+            <i class="ri-file-list-line"></i>
+            <a href="#internship" class="nav-link">Offre de stage</a>
+          </li>
+
+          <li class="nav-item">
+            <i class="ri-logout-circle-r-line"></i>
+            <button id="signout" class="nav-link signout">
+              D&eacute;connexion
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sections -->
+      <div class="main-section">
+        <section id="dashboard" class="dashbord section grid">
+          <div class="section-title">Dashboard<span>.</span></div>
+
+          <div class="dashboard-cards grid">
+            <div class="dashboard-effective grid">
+              <div class="effective-card grid">
+                <i class="ri-user-3-line"></i>
+                <div class="effective-data">
+                  <span class="effective-number">250</span>
+                  <h3 class="effective-title">Total Etudiant(s)</h3>
+                </div>
+              </div>
+
+              <div class="effective-card grid">
+                <i class="ri-user-voice-line"></i>
+                <div class="effective-data">
+                  <span class="effective-number">30</span>
+                  <h3 class="effective-title">Total Professeur(s)</h3>
+                </div>
+              </div>
+
+              <div class="effective-card grid">
+                <i class="ri-file-user-line"></i>
+                <div class="effective-data">
+                  <span class="effective-number">20</span>
+                  <h3 class="effective-title">Total Jury(s)</h3>
+                </div>
+              </div>
+
+              <div class="effective-card grid">
+                <i class="ri-building-4-line"></i>
+                <div class="effective-data">
+                  <span class="effective-number">5</span>
+                  <h3 class="effective-title">Total Entreprise(s)</h3>
+                </div>
+              </div>
+
+              <div class="effective-card grid">
+                <i class="ri-file-list-line"></i>
+                <div class="effective-data">
+                  <span class="effective-number">4</span>
+                  <h3 class="effective-title">Nouvelle(s) Offre(s)</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-archive grid">
+              <div class="archive-card grid">
+                <i class="ri-archive-drawer-line"></i>
+                <div class="archive-data">
+                  <h3 class="archive-level">Licence 1</h3>
+                  <span class="archive-number">250</span>
+                  <h3 class="archive-title">Archives</h3>
+                </div>
+              </div>
+
+              <div class="archive-card grid">
+                <i class="ri-archive-drawer-line"></i>
+                <div class="archive-data">
+                  <h3 class="archive-level">Licence 2</h3>
+                  <span class="archive-number">50</span>
+                  <h3 class="archive-title">Archives</h3>
+                </div>
+              </div>
+
+              <div class="archive-card grid">
+                <i class="ri-archive-drawer-line"></i>
+                <div class="archive-data">
+                  <h3 class="archive-level">Licence 3</h3>
+                  <span class="archive-number">100</span>
+                  <h3 class="archive-title">Archives</h3>
+                </div>
+              </div>
+
+              <div class="archive-card grid">
+                <i class="ri-archive-drawer-line"></i>
+                <div class="archive-data">
+                  <h3 class="archive-level">Master 1</h3>
+                  <span class="archive-number">10</span>
+                  <h3 class="archive-title">Archives</h3>
+                </div>
+              </div>
+
+              <div class="archive-card grid">
+                <i class="ri-archive-drawer-line"></i>
+                <div class="archive-data">
+                  <h3 class="archive-level">Master 2</h3>
+                  <span class="archive-number">5</span>
+                  <h3 class="archive-title">Archives</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="student" class="student section grid">
+          <div class="section-title">&Eacute;tudiant<span>.</span></div>
+
+          <div class="section-container grid">
+            <div class="section-list">
+              <div class="section-content">
+                <table
+                  id="student-table"
+                  class="section-table"
+                  cellspacing="10"
+                >
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>NDEYE Marieme Ndir</td>
+                    <td>22</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>Keur Mbye Fall</td>
+                    <td>L3</td>
+                    <td>marieme.ndeye@gmail.com</td>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>NDOUMBI MOUANGO Samuel</td>
+                    <td>23</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>Libert&eacute; 5A</td>
+                    <td>L3</td>
+                    <td>samuel.mouango@gmail.com</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="section-add">
+              <form id="student-form" class="section-form">
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input name="name" type="text" placeholder="Nom" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input
+                    name="surname"
+                    type="text"
+                    placeholder="Pr&eacute;nom"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <input name="date" type="date" />
+                </div>
+
+                <div class="gender-box">
+                  <div class="student-gender active">
+                    <i class="ri-men-line"></i>
+                  </div>
+                  <div class="student-gender">
+                    <i class="ri-women-line"></i>
+                  </div>
+                </div>
+
+                <div class="level-box grid">
+                  <div class="student-level active">L1</div>
+                  <div class="student-level">L2</div>
+                  <div class="student-level">L3</div>
+                  <div class="student-level">M1</div>
+                  <div class="student-level">M2</div>
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon">
+                    <i class="ri-map-pin-3-line"></i>
+                  </div>
+                  <input name="address" type="text" placeholder="Adresse" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-mail-line"></i></div>
+                  <input name="email" type="email" placeholder="Email" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-lock-line"></i></div>
+                  <input
+                    name="password"
+                    type="text"
+                    placeholder="Mot de passe"
+                  />
+                </div>
+
+                <div class="input-submit">
+                  <input type="submit" value="Ajouter" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="teacher" class="teacher section grid">
+          <div class="section-title">Professeur<span>.</span></div>
+
+          <div class="section-container grid">
+            <div class="section-list">
+              <div class="section-content">
+                <table
+                  id="teacher-table"
+                  class="section-table"
+                  cellspacing="10"
+                >
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>GAYE Ibrahime</td>
+                    <td>43</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>Keur Mbye Fall</td>
+                    <td>Télécommunication et réseaux</td>
+                    <td>ibrahime.gaye@gmail.com</td>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>BOKOUM Abdul</td>
+                    <td>36</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>Keur Massar</td>
+                    <td>Systèmes et Réseaux Informatiques</td>
+                    <td>abdul.bokoum@gmail.com</td>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>GAYE Amadou</td>
+                    <td>30</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>Libert&eacute; 2</td>
+                    <td>Génie Logiciel et Bases de Données</td>
+                    <td>amadou.gaye@gmail.com</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="section-add">
+              <form id="teacher-form" class="section-form">
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input name="name" type="text" placeholder="Nom" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input
+                    name="surname"
+                    type="text"
+                    placeholder="Pr&eacute;nom"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <input name="date" type="date" />
+                </div>
+
+                <div class="gender-box">
+                  <div class="teacher-gender active">
+                    <i class="ri-men-line"></i>
+                  </div>
+                  <div class="teacher-gender">
+                    <i class="ri-women-line"></i>
+                  </div>
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-store-3-line"></i></div>
+                  <input
+                    name="department"
+                    type="text"
+                    placeholder="D&eacute;partement"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon">
+                    <i class="ri-map-pin-3-line"></i>
+                  </div>
+                  <input name="address" type="text" placeholder="Adresse" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-mail-line"></i></div>
+                  <input name="email" type="email" placeholder="Email" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-lock-line"></i></div>
+                  <input
+                    name="password"
+                    type="text"
+                    placeholder="Mot de passe"
+                  />
+                </div>
+
+                <div class="input-submit">
+                  <input type="submit" value="Ajouter" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="jury" class="jury section grid">
+          <div class="section-title">Jury<span>.</span></div>
+
+          <div class="section-container grid">
+            <div class="section-list">
+              <div class="section-content">
+                <table id="jury-table" class="section-table" cellspacing="10">
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>NDEYE Marieme Ndir</td>
+                    <td>22</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>marieme.ndeye@gmail.com</td>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>NDOUMBI MOUANGO Samuel</td>
+                    <td>23</td>
+                    <td><i class="ri-women-line"></i></td>
+                    <td>samuel.mouango@gmail.com</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="section-add">
+              <form id="jury-form" class="section-form">
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input name="name" type="text" placeholder="Nom" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input
+                    name="surname"
+                    type="text"
+                    placeholder="Pr&eacute;nom"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <input name="date" type="date" />
+                </div>
+
+                <div class="gender-box">
+                  <div class="jury-gender active">
+                    <i class="ri-men-line"></i>
+                  </div>
+                  <div class="jury-gender">
+                    <i class="ri-women-line"></i>
+                  </div>
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-mail-line"></i></div>
+                  <input name="email" type="email" placeholder="Email" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-lock-line"></i></div>
+                  <input
+                    name="password"
+                    type="text"
+                    placeholder="Mot de passe"
+                  />
+                </div>
+
+                <div class="input-submit">
+                  <input type="submit" value="Ajouter" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="company" class="company section grid">
+          <div class="section-title">&Eacute;tudiant<span>.</span></div>
+
+          <div class="section-container grid">
+            <div class="section-list">
+              <div class="section-content">
+                <table
+                  id="company-table"
+                  class="section-table"
+                  cellspacing="10"
+                >
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>Orange</td>
+                    <td>Keur Mbye Fall</td>
+                    <td>marieme.ndeye@gmail.com</td>
+                  </tr>
+
+                  <tr>
+                    <td><img src="./assets/Screenshot (9).png" alt="" /></td>
+                    <td>Free</td>
+                    <td>Keur Mbye Fall</td>
+                    <td>marieme.ndeye@gmail.com</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="section-add">
+              <form id="company-form" class="section-form">
+                <div class="input-box">
+                  <div id="upload" class="input-icon">
+                    <i class="ri-upload-cloud-line"></i>
+                  </div>
+                  <span class="filename"></span>
+                  <input
+                    id="uploading"
+                    name="image"
+                    type="file"
+                    placeholder="Logo"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input name="name" type="text" placeholder="Nom" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon">
+                    <i class="ri-map-pin-3-line"></i>
+                  </div>
+                  <input name="address" type="text" placeholder="Adresse" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-mail-line"></i></div>
+                  <input name="email" type="email" placeholder="Email" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-lock-line"></i></div>
+                  <input
+                    name="password"
+                    type="text"
+                    placeholder="Mot de passe"
+                  />
+                </div>
+
+                <div class="input-submit">
+                  <input type="submit" value="Ajouter" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="internship" class="internship section grid">
+          <div class="section-title">Offre<span>.</span></div>
+
+          <div class="internship-container grid">
+            <div class="internship-list"></div>
+            <div class="internship-add"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Script -->
+    <script src="../main.js"></script>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+    <script type="module" src="./assets/js/admin.js"></script>
+  </body>
+</html>

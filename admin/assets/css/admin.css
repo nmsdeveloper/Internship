@@ -1,0 +1,198 @@
+/* Sections */
+.main-section {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dashbord,
+.student,
+.teacher,
+.jury,
+.company,
+.internship {
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 5% 95%;
+  align-items: center;
+  row-gap: 1.5rem;
+}
+.section-container {
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 70% 30%;
+}
+.section-list,
+.section-add {
+  padding: 1rem;
+}
+.section-add {
+  height: 85vh;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+/* Dashboard */
+.dashboard-cards {
+  width: 100%;
+  height: 100%;
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 0.75rem;
+}
+
+.dashboard-effective,
+.dashboard-archive {
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 1rem 4rem;
+}
+.effective-card,
+.archive-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-radius);
+  box-shadow: var(--box-shadow);
+}
+.effective-card:hover {
+  box-shadow: none;
+}
+
+.effective-card i,
+.archive-card i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-size: var(--small-font-size);
+  border-radius: var(--circle-radius);
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+.effective-number,
+.archive-number {
+  color: var(--subtitle-color);
+  font-size: var(--normal-font-size);
+}
+.effective-title,
+.archive-title {
+  color: var(--text-color-alt);
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-normal);
+}
+
+.dashboard-archive {
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 2rem;
+}
+.archive-card {
+  height: 80%;
+  flex-direction: column;
+  cursor: pointer;
+  box-shadow: none;
+  border: 1px solid var(--primary-color-light);
+  transition: 0.3s ease-in-out;
+}
+.archive-card:hover {
+  box-shadow: var(--box-shadow);
+  border: none;
+}
+.archive-card i {
+  background-color: var(--secondary-color);
+}
+.archive-level {
+  color: var(--secondary-color);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-bold);
+}
+
+/* Student */
+.section-content {
+  width: 100%;
+  height: 83vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.section-table {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  color: var(--text-color);
+  font-size: var(--tiny-font-size);
+}
+.section-table img {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--circle-radius);
+}
+
+.section-form {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  row-gap: 1rem;
+}
+.input-box {
+  padding: 1.5rem 0.75rem;
+  display: flex;
+  column-gap: 1.25rem;
+  align-items: center;
+  border-radius: var(--button-radius);
+  box-shadow: var(--box-shadow);
+}
+.gender-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 3rem;
+}
+.level-box {
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 0.5rem;
+  align-items: center;
+}
+.grid-box {
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 0.5rem;
+  align-items: center;
+  font-size: var(--small-font-size);
+}
+.student-gender.active,
+.teacher-gender.active,
+.jury-gender.active,
+.student-level.active {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  border-radius: var(--button-radius);
+  padding: 0.5rem;
+  color: var(--white-color);
+  background-color: var(--primary-color);
+}
+
+.input-submit {
+  padding: 1.5rem 0.75rem;
+  border-radius: var(--button-radius);
+  background-color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input-submit input {
+  color: var(--white-color);
+}
+
+/* Teacher */
+
+/* Jury */
+
+/* Company */
+#uploading {
+  display: none;
+}
+/* Internship */
