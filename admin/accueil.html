@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./assets/css/admin.css" />
     <title>Internship - Admin</title>
   </head>
-  <body class="light">
+  <body>
     <main class="main">
       <!-- Side Bar -->
       <nav class="nav">
@@ -57,6 +57,10 @@
             <button id="signout" class="nav-link signout">
               D&eacute;connexion
             </button>
+          </li>
+
+          <li class="nav-item">
+            <i id="theme" class="ri-sun-line"></i>
           </li>
         </ul>
       </nav>
@@ -523,7 +527,34 @@
           <div class="section-title">Offre<span>.</span></div>
 
           <div class="internship-container grid">
-            <div class="internship-list"></div>
+            <div class="internship-card grid">
+              <div class="internship-group">
+                <img
+                  class="internship-logo"
+                  src="./assets/Orange-logo.jpg"
+                  alt=""
+                />
+
+                <div class="internship-location">
+                  <i class="ri-map-pin-line"></i>
+                  <p class="internship-address">
+                    Jet d'eau, Dakar, S&eacute;n&eacute;gal.
+                  </p>
+                </div>
+              </div>
+
+              <div class="internship-data">
+                <h2 class="internship-title">Administrateur R&eacute;seau</h2>
+                <h6 class="internship-company">Orange</h6>
+                <p class="internship-description">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Nesciunt illum, similique vel temporibus maxime iure fugiat
+                  perspiciatis ratione...
+                </p>
+                <button class="internship-attribute">Attribuer</button>
+              </div>
+            </div>
+
             <div class="internship-add"></div>
           </div>
         </section>

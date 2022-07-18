@@ -7,6 +7,25 @@
 /* Variables */
 :root {
   /* Colors */
+  --primary-color: #6570cf;
+  --primary-color-alt: #7380ec;
+  --primary-color-light: rgba(0, 0, 0, 0.4);
+
+  --secondary-color: #ec7380;
+  --tertiary-color: #80ec73;
+
+  --title-color: #ecf0f3;
+  --subtitle-color: #edeffd;
+
+  --text-color: #a3bdcc;
+  --text-color-alt: #7d8da1;
+
+  --white-color: #ffffff;
+  --black-color: #111111;
+  --light-color: #fdfdfd;
+
+  --body-color: #181a1e;
+  --box-shadow: 0 0.5rem 1rem var(--primary-color-light);
 
   /* Font Family */
   --body-font: "Poppins", sans-serif;
@@ -45,21 +64,14 @@ body.light {
   --primary-color-alt: #6570cf;
   --primary-color-light: rgba(132, 139, 200, 0.18);
 
-  --secondary-color: #ec7380;
-  --tertiary-color: #80ec73;
-
   --title-color: #1d1d1d;
   --subtitle-color: #363949;
 
   --text-color: #677483;
   --text-color-alt: #7d8da1;
 
-  --white-color: #ffffff;
-  --black-color: #111111;
   --light-color: #010609;
-
   --body-color: #ecf0f3;
-  --box-shadow: 0 0.5rem 1rem var(--primary-color-light);
 }
 
 /* Bases Styles */
@@ -161,7 +173,7 @@ video {
   display: flex;
   flex-direction: column;
   height: 86vh;
-  top: 3rem;
+  top: 1rem;
 }
 .nav-item {
   display: flex;
@@ -200,5 +212,9 @@ video {
 }
 
 .signout {
+  cursor: pointer;
+}
+
+#theme {
   cursor: pointer;
 }
