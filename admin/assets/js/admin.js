@@ -32,6 +32,25 @@ const addActive = (genderId) => {
   });
 };
 
+const attributeBtn = document.querySelectorAll(".internship-attribute");
+attributeBtn.forEach((attr) => {
+  attr.addEventListener("click", () => {
+    showPopup("internship-popup");
+  });
+});
+const showPopup = (popId) => {
+  const popup = document.getElementById(popId);
+  popup.style.display = "flex";
+};
+const hiddenPopup = (closeId) => {
+  const popup = document.getElementById(closeId);
+  popup.style.display = "none";
+};
+const closePopup = document.getElementById("close-popup");
+closePopup.addEventListener("click", () => {
+  hiddenPopup("internship-popup");
+});
+
 addActive(".student-gender");
 addActive(".teacher-gender");
 addActive(".jury-gender");
@@ -45,3 +64,14 @@ document.getElementById("upload").addEventListener("click", () => {
 takeFile.onchange = () => {
   document.querySelector(".filename").innerHTML = takeFile.files[0].name;
 };
+
+var internship = new Swiper(".internship-slide", {
+  spaceBetween: 32,
+  centeredSlides: true,
+  slidesPerView: "auto",
+
+  navigation: {
+    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-button-next",
+  },
+});
