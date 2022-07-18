@@ -4,3 +4,21 @@
   height: 100vh;
   overflow: hidden;
 }
+
+.request,
+.offer,
+.intern,
+.company {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 5% 95%;
+  align-items: center;
+  row-gap: 1.5rem;
+}
+
+.section-container {
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(4, 1fr);
+}
