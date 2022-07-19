@@ -52,146 +52,130 @@
         <section id="offer" class="internship section grid">
           <h1 class="section-title">Offre de stage<span>.</span></h1>
 
-          <div class="internship-container grid">
-            <article class="internship-card grid">
-              <div class="internship-group">
-                <img
-                  class="internship-logo"
-                  src="../admin/assets/Orange-logo.jpg"
-                  alt=""
-                />
-
-                <div class="internship-location">
-                  <i class="ri-map-pin-line"></i>
-                  <p class="internship-address">
-                    Jet d'eau, Dakar, S&eacute;n&eacute;gal.
-                  </p>
-                </div>
-              </div>
-
-              <div class="internship-data">
-                <h2 class="internship-title">Administrateur R&eacute;seau</h2>
-                <h6 class="internship-company">Orange</h6>
-                <p class="internship-description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Nesciunt illum, similique vel temporibus maxime iure fugiat
-                  perspiciatis ratione...
-                </p>
-                <button class="internship-apply">Postuler</button>
-              </div>
-            </article>
-          </div>
+          <div
+            id="student-internship-cnt"
+            class="internship-container grid"
+          ></div>
         </section>
 
         <section id="archive" class="archive section grid">
           <h1 class="section-title">Archive<span>.</span></h1>
-        
+
           <div class="archive-container grid">
             <div class="archive-content">
               <h1>Rapport de stage</h1>
               <form id="rForm" action="#">
-                <input class="file-input" type="file" name="rfile" hidden>
+                <input class="file-input" type="file" name="rfile" hidden />
                 <i class="ri-upload-cloud-line"></i>
                 <p>Rechercher le fichier</p>
               </form>
               <section id="rprogress" class="progress-area"></section>
               <section id="ruploaded" class="uploaded-area"></section>
+            </div>
+
+            <div class="archive-content">
+              <h1>R&eacute;sum&eacute; de stage</h1>
+              <form id="rForm" action="#">
+                <input class="file-input" type="file" name="rfile" hidden />
+                <i class="ri-upload-cloud-line"></i>
+                <p>Rechercher le fichier</p>
+              </form>
+              <section id="rprogress" class="progress-area"></section>
+              <section id="ruploaded" class="uploaded-area"></section>
+            </div>
+
+            <div class="archive-content">
+              <h1>Fiche d'&eacute;valution</h1>
+              <form id="rForm" action="#">
+                <input class="file-input" type="file" name="rfile" hidden />
+                <i class="ri-upload-cloud-line"></i>
+                <p>Rechercher le fichier</p>
+              </form>
+              <section id="rprogress" class="progress-area"></section>
+              <section id="ruploaded" class="uploaded-area"></section>
+            </div>
           </div>
-
-          <div class="archive-content">
-            <h1>R&eacute;sum&eacute; de stage</h1>
-            <form id="rForm" action="#">
-              <input class="file-input" type="file" name="rfile" hidden>
-              <i class="ri-upload-cloud-line"></i>
-              <p>Rechercher le fichier</p>
-            </form>
-            <section id="rprogress" class="progress-area"></section>
-            <section id="ruploaded" class="uploaded-area"></section>
-        </div>
-
-        <div class="archive-content">
-          <h1>Fiche d'&eacute;valution</h1>
-          <form id="rForm" action="#">
-            <input class="file-input" type="file" name="rfile" hidden>
-            <i class="ri-upload-cloud-line"></i>
-            <p>Rechercher le fichier</p>
-          </form>
-          <section id="rprogress" class="progress-area"></section>
-          <section id="ruploaded" class="uploaded-area"></section>
-      </div>
         </section>
 
         <section id="profile" class="profile section grid">
           <h1 class="section-title">Profil<span>.</span></h1>
 
           <div class="profile-container grid">
-            <div class="profile-info">
-              <img
-                src="../admin/assets/Screenshot (9).png"
-                alt=""
-                class="profile-image"
-              />
+            <form id="profile-form" class="profile-form">
+              <div class="profile-info">
+                <img id="image-input" alt="" class="profile-image" />
 
-              <div class="profile-data">
-                <div class="input-box">
-                  <input
-                    class="input"
-                    name="name"
-                    type="text"
-                    value="NDEYE Marieme Ndir"
-                  />
-                </div>
+                <div class="profile-data">
+                  <div class="input-box">
+                    <input
+                      id="name-input"
+                      class="input"
+                      name="name"
+                      type="text"
+                    />
+                  </div>
 
-                <div class="input-box">
-                  <input
-                    id="date"
-                    class="input"
-                    name="birth"
-                    type="date"
-                    value=""
-                  />
-                </div>
-                <div class="input-box">
-                  <input
-                    class="input"
-                    name="company"
-                    type="text"
-                    value="Telecommunication et Reseau"
-                  />
-                </div>
+                  <div class="input-box">
+                    <input
+                      id="surname-input"
+                      class="input"
+                      name="surname"
+                      type="text"
+                    />
+                  </div>
 
-                <div class="input-box">
-                  <input
-                    class="input"
-                    name="company"
-                    type="text"
-                    value="Keur Mbaye Fall"
-                  />
-                </div>
+                  <div class="input-box">
+                    <input
+                      id="gender-input"
+                      class="input"
+                      name="gender"
+                      type="text"
+                    />
+                  </div>
 
-                <div class="input-box">
-                  <input
-                    class="input"
-                    name="company"
-                    type="text"
-                    value="marieme@ndeye.gmail.com"
-                  />
-                </div>
+                  <div class="input-box">
+                    <input
+                      id="level-input"
+                      class="input"
+                      name="level"
+                      type="text"
+                    />
+                  </div>
 
-                <div class="input-box">
-                  <input
-                    class="input"
-                    name="company"
-                    type="text"
-                    value="Orange"
-                  />
-                </div>
+                  <div class="input-box">
+                    <input
+                      id="faculty-input"
+                      class="input"
+                      name="faculty"
+                      type="text"
+                    />
+                  </div>
 
-                <div class="input-submit company-submit">
-                  <input type="submit" value="Modifier" />
+                  <div class="input-box">
+                    <input
+                      id="address-input"
+                      class="input"
+                      name="address"
+                      type="text"
+                    />
+                  </div>
+
+                  <div class="input-box">
+                    <input
+                      disabled
+                      class="input"
+                      name="email"
+                      type="text"
+                      value="marieme@ndeye.gmail.com"
+                    />
+                  </div>
+
+                  <div class="input-submit company-submit">
+                    <input type="submit" value="Modifier" />
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
             <div class="profile-remark">
               <article class="remark-card">
                 <span class="remark-name">Mr Bokoum</span>

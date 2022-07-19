@@ -16,7 +16,7 @@ import {
 const email = window.localStorage.getItem("Email");
 getDocument("Companies", email);
 
-const currentCompany = window.localStorage.getItem("Name");
+const currentCompany = window.localStorage.getItem("Company");
 const currentAddress = window.localStorage.getItem("Address");
 const currnetImage = window.localStorage.getItem("Image");
 
@@ -85,9 +85,10 @@ var intern = new Swiper(".intern-slide", {
 });
 
 document.getElementById("signout").addEventListener("click", () => {
+  window.localStorage.setItem("Email", "");
+  window.localStorage.setItem("Image", "");
+  window.localStorage.setItem("Address", "");
+  window.localStorage.setItem("Company", "");
+
   logout();
 });
-
-// è
-// é
-// L'etudiant sera charger de l'administration du réseau de l'entreprise sur la supervision du chef de departement réseau.

@@ -157,8 +157,16 @@ export const getDocument = (reference, document) => {
   getDoc(doc(db, reference, document)).then((docSnap) => {
     if (reference == "Companies") {
       window.localStorage.setItem("Image", docSnap.data().image);
-      window.localStorage.setItem("Name", docSnap.data().name);
+      window.localStorage.setItem("Company", docSnap.data().name);
       window.localStorage.setItem("Address", docSnap.data().address);
+    } else if (reference == "Students") {
+      window.localStorage.setItem("Name", docSnap.data().name);
+      window.localStorage.setItem("Surname", docSnap.data().surname);
+      window.localStorage.setItem("Faculty", docSnap.data().faculty);
+      window.localStorage.setItem("Address", docSnap.data().address);
+      window.localStorage.setItem("Image", docSnap.data().image);
+      window.localStorage.setItem("Level", docSnap.data().level);
+      window.localStorage.setItem("Gender", docSnap.data().gender);
     }
   });
 };
@@ -312,6 +320,38 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
         const closePopup = document.getElementById("close-popup");
         closePopup.addEventListener("click", () => {
           hiddenPopup("internship-popup");
+        });
+      } else if (reference == "Offers" && slide == "Student") {
+        querySnap.forEach((doc) => {
+          document.getElementById("student-internship-cnt").innerHTML += `
+            <article class="internship-card grid">
+              <div class="internship-group">
+                <img
+                  class="internship-logo"
+                  src="${doc.data().image}"
+                  alt=""
+                />
+
+                <div class="internship-location">
+                  <i class="ri-map-pin-line"></i>
+                  <p class="internship-address">
+                  ${doc.data().address}.
+                  </p>
+                </div>
+              </div>
+
+              <div class="internship-data">
+                <h2 class="internship-title">${doc.data().poste}</h2>
+                <h6 class="internship-company">${doc.data().name}</h6>
+                <p class="internship-description">
+                ${doc.data().description}
+                </p>
+                <button id="${
+                  doc.id
+                }" class="internship-apply">Postuler</button>
+              </div>
+            </article>
+          `;
         });
       } else if (reference == "Offers") {
         querySnap.forEach((doc) => {

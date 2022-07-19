@@ -44,6 +44,7 @@
         const email = authentification.elements["email"].value;
         const password = authentification.elements["password"].value;
 
+        window.localStorage.setItem("Email", email);
         connectUser(email, password);
       });
     </script>
