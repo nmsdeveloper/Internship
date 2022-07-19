@@ -76,3 +76,12 @@ function uploadFile(name) {
   let data = new FormData(form);
   xhr.send(data);
 }
+
+const authentification = document.getElementById("form");
+authentification.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = elements["email"].value;
+  const password = elements["password"].value;
+
+  connectUser(email, password, "./accueil.html");
+});

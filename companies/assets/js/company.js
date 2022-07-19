@@ -15,7 +15,6 @@ import {
   getFile,
 } from "../../../firebase.js";
 
-
 var offer = new Swiper(".offer-slide", {
   spaceBetween: 32,
   centeredSlides: true,
@@ -36,4 +35,13 @@ var intern = new Swiper(".intern-slide", {
     prevEl: ".swiper-button-prev",
     nextEl: ".swiper-button-next",
   },
+});
+
+const authentification = document.getElementById("form");
+authentification.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = elements["email"].value;
+  const password = elements["password"].value;
+
+  connectUser(email, password, "./accueil.html");
 });

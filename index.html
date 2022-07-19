@@ -8,18 +8,55 @@
       rel="stylesheet"
       href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="../styles.css">
-    <title>Internship - Admin</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <title>Internship - Accueil</title>
+
+    <style>
+      .connectioc-option {
+        padding: 5rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        align-items: center;
+      }
+      .option-card {
+        font-size: var(--small-font-size);
+        font-weight: var(--font-medium);
+        padding: 3rem 1rem;
+        border-radius: var(--button-radius);
+        color: var(--title-color);
+        background-color: var(--primary-color);
+      }
+    </style>
   </head>
   <body>
-    <!-- <i class="ri-dashboard-line"></i> -->
-    <!-- <i class="ri-user-3-line"></i> -->
-    <!-- <i class="ri-user-voice-line"></i> -->
-    <!-- <i class="ri-file-user-line"></i> -->
-    <!-- <i class="ri-building-4-line"></i> -->
-    <!-- <i class="ri-file-list-line"></i> -->
-    <!-- <i class="ri-logout-circle-r-line"></i> -->
+    <div class="connectioc-option grid">
+      <button onclick="goToHome('admin')" class="option-card">Admin</button>
+      <button onclick="goToHome('company')" class="option-card">
+        Entreprise
+      </button>
+      <button onclick="goToHome('teacher')" class="option-card">
+        Professeur
+      </button>
+      <button onclick="goToHome('student')" class="option-card">
+        Etudiant
+      </button>
+      <button onclick="goToHome('jury')" class="option-card">Jury</button>
+    </div>
 
+    <script>
+      function goToHome(ref) {
+        if (ref == "admin")
+          window.location.href = "./admin/authentification.html";
+        else if (ref == "company")
+          window.location.href = "./companies/authentification.html";
+        else if (ref == "teacher")
+          window.location.href = "./teachers/authentification.html";
+        else if (ref == "student")
+          window.location.href = "./students/authentification.html";
+        else if (ref == "jury")
+          window.location.href = "./juries/authentification.html";
+      }
+    </script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script type="module" src="../main.js"></script>

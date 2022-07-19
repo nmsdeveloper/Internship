@@ -49,7 +49,7 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 /* Auth */
-export const createUser = ({ email, password, reference, data }) => {
+export const createUser = (email, password, reference, data) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -62,10 +62,11 @@ export const createUser = ({ email, password, reference, data }) => {
     });
 };
 
-export const connectUser = ({ email, password, data }) => {
+export const connectUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      window.location.href = "./accueil.html";
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -116,7 +117,9 @@ export const resetPassword = (email) => {
 
 /* Firestore */
 export const setDocument = (reference, document, data) => {
-  setDoc(doc(db, reference, document), data).then(() => {});
+  setDoc(doc(db, reference, document), data).then(() => {
+    window.location.reload();
+  });
 };
 
 export const setCollection = (reference, data) => {
