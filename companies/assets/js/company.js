@@ -73,6 +73,8 @@ companyForm.addEventListener("submit", (e) => {
   updateDocument("Companies", email, dataCompany);
 });
 
+getQueryWhere("Requests", "company", currentCompany, "Request")
+
 var intern = new Swiper(".intern-slide", {
   spaceBetween: 32,
   centeredSlides: true,

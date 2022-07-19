@@ -362,22 +362,32 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
         const apply = document.querySelectorAll(".internship-apply");
         const applySpan = document.querySelectorAll(".internship-apply span");
         const internshipTitle = document.querySelectorAll(".internship-title");
-        const internshipCompany = document.querySelectorAll(".internship-company");
-        
+
         apply.forEach((ap, index) => {
           ap.addEventListener("click", () => {
-            setDocument("Requests", window.localStorage.getItem("EmailStudent"), {
-              status: false,
-              offer: ap.id,
-              image: window.localStorage.getItem("ImageStudent"),
-              email: window.localStorage.getItem("EmailStudent"),
-              name: window.localStorage.getItem("NameStudent"),
-              surname: window.localStorage.getItem("SurnameStudent"),
-              level: window.localStorage.getItem("LevelStudent"),
-              faculty: window.localStorage.getItem("FacultyStudent"),
-              poste: internshipTitle[index].textContent.trim(),
-              companyEmail: applySpan[index].classList.toString(),
-              company: internshipCompany[index].textContent.trim(),
+            getDoc(
+              doc(db, "Requests", window.localStorage.getItem("EmailStudent"))
+            ).then((docSnap) => {
+              if (docSnap.exists() && docSnap.data().status) {
+                window.alert("Vous avez deja un stage en cours");
+              } else {
+                setDocument(
+                  "Requests",
+                  window.localStorage.getItem("EmailStudent"),
+                  {
+                    status: false,
+                    offer: ap.id,
+                    image: window.localStorage.getItem("ImageStudent"),
+                    email: window.localStorage.getItem("EmailStudent"),
+                    name: window.localStorage.getItem("NameStudent"),
+                    surname: window.localStorage.getItem("SurnameStudent"),
+                    level: window.localStorage.getItem("LevelStudent"),
+                    faculty: window.localStorage.getItem("FacultyStudent"),
+                    poste: internshipTitle[index].textContent.trim(),
+                    companyEmail: applySpan[index].classList.toString(),
+                  }
+                );
+              }
             });
           });
         });
@@ -409,6 +419,91 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
             prevEl: ".swiper-button-prev",
             nextEl: ".swiper-button-next",
           },
+        });
+      } else if (reference == "Requests" && slide == "Request") {
+        querySnap.forEach((doc, index) => {
+          document.getElementById("intern-wrapper").innerHTML += `
+            <div class="swiper-slide">
+              <article class="intern-card grid">
+                <div class="intern-info grid">
+                  <img
+                    class="intern-image"
+                    src="${doc.data().image}"
+                    alt=""
+                  />
+
+                  <span class="intern-name">${doc.data().name} ${
+            doc.data().surname
+          }</span>
+                  <span class="intern-poste">
+                  ${doc.data().poste}
+                  </span>
+                  <span class="intern-date">A commencer: ${
+                    doc.data().date
+                  }</span>
+                  <span class="remark-content">
+                    <label for="remark-${index}">Remarque: 12.04.2022</label>
+                    <p id="remark-${index}" class="remark-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Voluptatibus rem, aperiam corrupti a nobis id ducimus
+                      odit ad alias itaque recusandae sequi. Accusantium,
+                      magni corrupti. Vitae ducimus animi quasi adipisci.
+                    </p>
+                  </span>
+
+                  <span class="intern-mission">
+                    <label for="mission">Attribuer: 12.03.2022</label>
+                    <div class="mission-list grid">
+                      <span class="mission-name">
+                        Lorem ipsum dolor sit amet consectetur
+                      </span>
+                      <span class="mission-name">
+                        Lorem ipsum dolor sit amet consectetur
+                      </span>
+                      <span class="mission-name">
+                        Lorem ipsum dolor sit amet consectetur
+                      </span>
+                      <span class="mission-name">
+                        Lorem ipsum dolor sit amet consectetur
+                      </span>
+                    </div>
+                  </span>
+                </div>
+                <div class="intern-mission grid">
+                  <form class="intern-form remark-form">
+                    <div class="input-desc">
+                      <label for="internship-remark${index}">Remarque</label>
+                      <textarea
+                        id="internship-remark${index}"
+                        class="internship-remark"
+                        name="remark"
+                      ></textarea>
+                    </div>
+
+                    <div class="input-submit intern-btn">
+                      <input type="submit" value="Ajouter" />
+                    </div>
+                  </form>
+                  <form class="intern-form mission-form">
+                    <div class="input-box">
+                      <div class="input-icon">
+                        <i class="ri-user-line"></i>
+                      </div>
+                      <input
+                        class="intern-input"
+                        name="address"
+                        type="text"
+                        placeholder="S&eacute;parer chaque mission par une virgule"
+                      />
+                    </div>
+                    <div class="input-submit intern-btn">
+                      <input type="submit" value="Ajouter" />
+                    </div>
+                  </form>
+                </div>
+              </article>
+            </div>
+          `;
         });
       } else if (reference == "Requests") {
         querySnap.forEach((doc) => {
@@ -449,9 +544,15 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
 
         accept.forEach((ac) => {
           ac.addEventListener("click", () => {
+            let currDay = new Date().getDay();
+            let currMonth = new Date().getMonth();
+            let currYear = new Date().getFullYear();
+            var date = `${currDay}.${currMonth}.${currYear}`;
             updateDocument("Requests", ac.id, {
+              date: date,
               status: true,
               companyEmail: deleteField(),
+              company: window.localStorage.getItem("CompanyCompany"),
             });
           });
         });
