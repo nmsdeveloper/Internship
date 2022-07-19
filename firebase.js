@@ -22,6 +22,7 @@ import {
   query,
   doc,
   collection,
+  arrayUnion,
   where,
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js";
 
@@ -385,6 +386,8 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
                     faculty: window.localStorage.getItem("FacultyStudent"),
                     poste: internshipTitle[index].textContent.trim(),
                     companyEmail: applySpan[index].classList.toString(),
+                    missions: [""],
+                    remarks: [""],
                   }
                 );
               }
@@ -422,6 +425,35 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
         });
       } else if (reference == "Requests" && slide == "Request") {
         querySnap.forEach((doc, index) => {
+          let remarks = "",
+            missions = "";
+          doc.data().remarks.forEach((rms) => {
+            remarks += `
+              <span class="remark-content">
+                <label for="remark-${index}">Remarque: ${
+              rms.date == undefined ? "" : rms.date
+            }</label>
+                <p id="remark-${index}" class="remark-text">
+                ${rms.text == undefined ? "" : rms.text}
+                </p>
+              </span>
+            `;
+          });
+          doc.data().missions.forEach((miss) => {
+            missions += `
+              <span class="intern-mission">
+                <label for="mission">Mission: ${
+                  miss.date == undefined ? "" : miss.date
+                }</label>
+                <div class="mission-list grid">
+                  <span class="mission-name">
+                  ${miss.text == undefined ? "" : miss.text}
+                  </span>
+                </div>
+              </span>
+            `;
+          });
+
           document.getElementById("intern-wrapper").innerHTML += `
             <div class="swiper-slide">
               <article class="intern-card grid">
@@ -441,43 +473,21 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
                   <span class="intern-date">A commencer: ${
                     doc.data().date
                   }</span>
-                  <span class="remark-content">
-                    <label for="remark-${index}">Remarque: 12.04.2022</label>
-                    <p id="remark-${index}" class="remark-text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptatibus rem, aperiam corrupti a nobis id ducimus
-                      odit ad alias itaque recusandae sequi. Accusantium,
-                      magni corrupti. Vitae ducimus animi quasi adipisci.
-                    </p>
-                  </span>
-
-                  <span class="intern-mission">
-                    <label for="mission">Attribuer: 12.03.2022</label>
-                    <div class="mission-list grid">
-                      <span class="mission-name">
-                        Lorem ipsum dolor sit amet consectetur
-                      </span>
-                      <span class="mission-name">
-                        Lorem ipsum dolor sit amet consectetur
-                      </span>
-                      <span class="mission-name">
-                        Lorem ipsum dolor sit amet consectetur
-                      </span>
-                      <span class="mission-name">
-                        Lorem ipsum dolor sit amet consectetur
-                      </span>
-                    </div>
-                  </span>
+                  ${missions}
+                  ${remarks}
                 </div>
                 <div class="intern-mission grid">
-                  <form class="intern-form remark-form">
-                    <div class="input-desc">
-                      <label for="internship-remark${index}">Remarque</label>
+                <form class="intern-form remark-form">
+                  <div class="input-desc">
+                    <label for="internship-remark${index}">Remarque</label>
                       <textarea
                         id="internship-remark${index}"
                         class="internship-remark"
                         name="remark"
-                      ></textarea>
+                      >
+                      
+                      </textarea>
+                      <span id="${doc.data().email}"></span>
                     </div>
 
                     <div class="input-submit intern-btn">
@@ -491,9 +501,9 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
                       </div>
                       <input
                         class="intern-input"
-                        name="address"
+                        name="mission"
                         type="text"
-                        placeholder="S&eacute;parer chaque mission par une virgule"
+                        placeholder="Mission"
                       />
                     </div>
                     <div class="input-submit intern-btn">
@@ -504,6 +514,46 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
               </article>
             </div>
           `;
+        });
+
+        const remarkForm = document.querySelectorAll(".remark-form"),
+          missionForm = document.querySelectorAll(".mission-form"),
+          emailIntern = document.querySelectorAll(".input-desc span");
+
+        remarkForm.forEach((rF, index) => {
+          let currDay = new Date().getDay();
+          let currMonth = new Date().getMonth();
+          let currYear = new Date().getFullYear();
+          var date = `${currDay}.${currMonth}.${currYear}`;
+          rF.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const remark = rF.elements["remark"].value;
+            updateDocument("Requests", emailIntern[index].id, {
+              remarks: arrayUnion({
+                date: date,
+                text: remark,
+              }),
+            });
+          });
+        });
+
+        missionForm.forEach((mF, index) => {
+          let currDay = new Date().getDay();
+          let currMonth = new Date().getMonth();
+          let currYear = new Date().getFullYear();
+          var date = `${currDay}.${currMonth}.${currYear}`;
+          mF.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const mission = mF.elements["mission"].value;
+            updateDocument("Requests", emailIntern[index].id, {
+              missions: [
+                {
+                  date: date,
+                  text: mission,
+                },
+              ],
+            });
+          });
         });
       } else if (reference == "Requests") {
         querySnap.forEach((doc) => {
