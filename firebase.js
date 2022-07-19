@@ -138,7 +138,9 @@ export const setDocument = (reference, document, data, updateCompany = {}) => {
 };
 
 export const setCollection = (reference, data) => {
-  addDoc(collection(db, reference), data).then(() => {});
+  addDoc(collection(db, reference), data).then(() => {
+    window.location.reload();
+  });
 };
 
 export const updateDocument = (reference, document, data) => {
@@ -152,7 +154,13 @@ export const deleteDocument = (reference, document, data) => {
 };
 
 export const getDocument = (reference, document) => {
-  getDoc(doc(db, reference, document)).then((docSnap) => {});
+  getDoc(doc(db, reference, document)).then((docSnap) => {
+    if (reference == "Companies") {
+      window.localStorage.setItem("Image", docSnap.data().image);
+      window.localStorage.setItem("Name", docSnap.data().name);
+      window.localStorage.setItem("Address", docSnap.data().address);
+    }
+  });
 };
 
 export const getCollection = (reference) => {

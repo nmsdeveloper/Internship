@@ -1,6 +1,5 @@
 import {
   createUser,
-  connectUser,
   statusUser,
   logout,
   resetPassword,
@@ -64,17 +63,6 @@ document.getElementById("upload").addEventListener("click", () => {
 takeFile.onchange = () => {
   document.querySelector(".filename").innerHTML = takeFile.files[0].name;
 };
-
-var internship = new Swiper(".internship-slide", {
-  spaceBetween: 32,
-  centeredSlides: true,
-  slidesPerView: "auto",
-
-  navigation: {
-    prevEl: ".swiper-button-prev",
-    nextEl: ".swiper-button-next",
-  },
-});
 
 /* dashboard */
 
@@ -201,4 +189,16 @@ getCollection("Companies");
 
 document.getElementById("signout").addEventListener("click", () => {
   logout();
+});
+
+
+var internship = new Swiper(".internship-slide", {
+  spaceBetween: 32,
+  centeredSlides: true,
+  slidesPerView: "auto",
+
+  navigation: {
+    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-button-next",
+  },
 });
