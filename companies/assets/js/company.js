@@ -13,12 +13,12 @@ import {
   setFile,
   getFile,
 } from "../../../firebase.js";
+const email = window.localStorage.getItem("Email");
 
 /* Offer */
 const offerForm = document.getElementById("offer-form");
 offerForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const email = window.localStorage.getItem("Email");
   getDocument("Companies", email);
 
   const poste = offerForm.elements["poste"].value;
@@ -44,7 +44,7 @@ offerForm.addEventListener("submit", (e) => {
 
   setCollection("Offers", dataOffer);
 });
-// getCollection("Companies");
+getQueryWhere("Offers", "email", email);
 
 var offer = new Swiper(".offer-slide", {
   spaceBetween: 32,
@@ -66,6 +66,10 @@ var intern = new Swiper(".intern-slide", {
     prevEl: ".swiper-button-prev",
     nextEl: ".swiper-button-next",
   },
+});
+
+document.getElementById("signout").addEventListener("click", () => {
+  logout();
 });
 
 // è

@@ -163,7 +163,7 @@ export const getDocument = (reference, document) => {
   });
 };
 
-export const getCollection = (reference) => {
+export const getCollection = (reference, slide = "") => {
   getDocs(collection(db, reference)).then((querySnap) => {
     if (reference == "Students")
       querySnap.forEach((doc) => {
@@ -183,7 +183,7 @@ export const getCollection = (reference) => {
         </tr>
         `;
       });
-    if (reference == "Teachers")
+    else if (reference == "Teachers")
       querySnap.forEach((doc) => {
         var genre =
           doc.data().gender == "Masculin"
@@ -201,7 +201,7 @@ export const getCollection = (reference) => {
           </tr>
         `;
       });
-    if (reference == "Juries")
+    else if (reference == "Juries")
       querySnap.forEach((doc) => {
         var genre =
           doc.data().gender == "Masculin"
@@ -228,13 +228,100 @@ export const getCollection = (reference) => {
             </tr>
           `;
       });
+    else if (reference == "Faculty")
+      querySnap.forEach((doc) => {
+        document.getElementById("admin-popup").innerHTML += `
+        <div class="internship-option">${doc.data().faculty}</div>
+        `;
+      });
   });
 };
 
-export const getQueryWhere = (reference, field, value) => {
-  getDocs(query(collection(db, reference), where(field, "==", value))).forEach(
-    (doc) => {
-      console.log(doc.id, " => ", doc.data());
+export const getQueryWhere = (reference, field, value, slide = "") => {
+  getDocs(query(collection(db, reference), where(field, "==", value))).then(
+    (querySnap) => {
+      if (reference == "Offers" && slide == "Admin") {
+        querySnap.forEach((doc) => {
+          document.getElementById("internship-wrapper").innerHTML += `
+            <div class="swiper-slide">
+              <article class="internship-card grid">
+                <div class="internship-group">
+                  <img
+                    class="internship-logo"
+                    src="${doc.data().image}"
+                    alt=""
+                  />
+        
+                  <div class="internship-location">
+                    <i class="ri-map-pin-line"></i>
+                    <p class="internship-address">
+                    ${doc.data().address}.
+                    </p>
+                  </div>
+                </div>
+        
+                <div class="internship-data">
+                  <h2 class="internship-title">
+                  ${doc.data().poste}
+                  </h2>
+                  <h6 class="internship-company">Orange</h6>
+                  <p class="internship-description">
+                    ${doc.data().description}
+                  </p>
+                  <button id="${
+                    doc.id
+                  }" class="internship-attribute">Attribuer</button>
+                </div>
+              </article>
+            </div>
+          `;
+        });
+        const attributeBtn = document.querySelectorAll(".internship-attribute");
+        attributeBtn.forEach((attr) => {
+          attr.addEventListener("click", () => {
+            showPopup("internship-popup");
+            const option = document.querySelectorAll(".internship-option");
+            option.forEach((el) => {
+              el.addEventListener("click", () => {
+                updateDocument("Offers", attr.id, {
+                  faculty: el.textContent.trim(),
+                  attribute: true,
+                });
+              });
+            });
+          });
+        });
+        const showPopup = (popId) => {
+          const popup = document.getElementById(popId);
+          popup.style.display = "flex";
+        };
+        const hiddenPopup = (closeId) => {
+          const popup = document.getElementById(closeId);
+          popup.style.display = "none";
+        };
+        const closePopup = document.getElementById("close-popup");
+        closePopup.addEventListener("click", () => {
+          hiddenPopup("internship-popup");
+        });
+      } else if (reference == "Offers")
+        querySnap.forEach((doc) => {
+          document.getElementById("offer-wrapper").innerHTML += `
+            <div class="swiper-slide">
+                <article class="offer-card grid">
+                  <h2 class="offer-title">${doc.data().poste}</h2>
+                  <div class="offer-location">
+                    <i class="ri-map-pin-line"></i>
+                    <p class="offer-address">
+                    ${doc.data().address}
+                    </p>
+                  </div>
+                  <p class="offer-description">
+                  ${doc.data().description}
+                  </p>
+                </article>
+              </div>
+            `;
+        });
     }
   );
 };

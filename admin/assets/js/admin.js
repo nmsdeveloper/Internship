@@ -31,25 +31,6 @@ const addActive = (genderId) => {
   });
 };
 
-const attributeBtn = document.querySelectorAll(".internship-attribute");
-attributeBtn.forEach((attr) => {
-  attr.addEventListener("click", () => {
-    showPopup("internship-popup");
-  });
-});
-const showPopup = (popId) => {
-  const popup = document.getElementById(popId);
-  popup.style.display = "flex";
-};
-const hiddenPopup = (closeId) => {
-  const popup = document.getElementById(closeId);
-  popup.style.display = "none";
-};
-const closePopup = document.getElementById("close-popup");
-closePopup.addEventListener("click", () => {
-  hiddenPopup("internship-popup");
-});
-
 addActive(".student-gender");
 addActive(".teacher-gender");
 addActive(".jury-gender");
@@ -186,11 +167,20 @@ companyForm.addEventListener("submit", (e) => {
 getCollection("Companies");
 
 /* internship */
+const internshipForm = document.getElementById("internship-form");
+internshipForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const faculty = internshipForm.elements["faculty"].value;
 
-document.getElementById("signout").addEventListener("click", () => {
-  logout();
+  const dataFaculty = {
+    faculty: faculty,
+  };
+
+  setCollection("Faculty", dataFaculty);
 });
 
+getQueryWhere("Offers", "attribute", false, "Admin");
+getCollection("Faculty");
 
 var internship = new Swiper(".internship-slide", {
   spaceBetween: 32,
@@ -201,4 +191,8 @@ var internship = new Swiper(".internship-slide", {
     prevEl: ".swiper-button-prev",
     nextEl: ".swiper-button-next",
   },
+});
+
+document.getElementById("signout").addEventListener("click", () => {
+  logout();
 });
