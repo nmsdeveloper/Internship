@@ -276,6 +276,16 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
             </div>
           `;
         });
+        var internship = new Swiper(".internship-slide", {
+          spaceBetween: 32,
+          centeredSlides: true,
+          slidesPerView: "auto",
+
+          navigation: {
+            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
+          },
+        });
         const attributeBtn = document.querySelectorAll(".internship-attribute");
         attributeBtn.forEach((attr) => {
           attr.addEventListener("click", () => {
@@ -303,7 +313,7 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
         closePopup.addEventListener("click", () => {
           hiddenPopup("internship-popup");
         });
-      } else if (reference == "Offers")
+      } else if (reference == "Offers") {
         querySnap.forEach((doc) => {
           document.getElementById("offer-wrapper").innerHTML += `
             <div class="swiper-slide">
@@ -322,6 +332,17 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
               </div>
             `;
         });
+        var offer = new Swiper(".offer-slide", {
+          spaceBetween: 32,
+          centeredSlides: true,
+          slidesPerView: "auto",
+
+          navigation: {
+            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
+          },
+        });
+      }
     }
   );
 };

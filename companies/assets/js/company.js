@@ -14,12 +14,23 @@ import {
   getFile,
 } from "../../../firebase.js";
 const email = window.localStorage.getItem("Email");
+getDocument("Companies", email);
+
+const currentCompany = window.localStorage.getItem("Name");
+const currentAddress = window.localStorage.getItem("Address");
+const currnetImage = window.localStorage.getItem("Image");
+
+const imageInput = document.getElementById("image-input");
+const companyInput = document.getElementById("company-input");
+const addressInput = document.getElementById("address-input");
+imageInput.src = currnetImage;
+companyInput.value = currentCompany;
+addressInput.value = currentAddress;
 
 /* Offer */
 const offerForm = document.getElementById("offer-form");
 offerForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  getDocument("Companies", email);
 
   const poste = offerForm.elements["poste"].value;
   const start = offerForm.elements["internship-start"].value;
@@ -46,15 +57,20 @@ offerForm.addEventListener("submit", (e) => {
 });
 getQueryWhere("Offers", "email", email);
 
-var offer = new Swiper(".offer-slide", {
-  spaceBetween: 32,
-  centeredSlides: true,
-  slidesPerView: "auto",
+/* Company */
+const companyForm = document.getElementById("company-form");
+companyForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  navigation: {
-    prevEl: ".swiper-button-prev",
-    nextEl: ".swiper-button-next",
-  },
+  const name = companyForm.elements["company"].value;
+  const address = companyForm.elements["address"].value;
+
+  const dataCompany = {
+    name: name,
+    address: address,
+  };
+
+  updateDocument("Companies", email, dataCompany);
 });
 
 var intern = new Swiper(".intern-slide", {

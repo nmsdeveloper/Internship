@@ -182,16 +182,6 @@ internshipForm.addEventListener("submit", (e) => {
 getQueryWhere("Offers", "attribute", false, "Admin");
 getCollection("Faculty");
 
-var internship = new Swiper(".internship-slide", {
-  spaceBetween: 32,
-  centeredSlides: true,
-  slidesPerView: "auto",
-
-  navigation: {
-    prevEl: ".swiper-button-prev",
-    nextEl: ".swiper-button-next",
-  },
-});
 
 document.getElementById("signout").addEventListener("click", () => {
   logout();
