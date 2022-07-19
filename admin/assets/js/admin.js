@@ -81,12 +81,14 @@ var internship = new Swiper(".internship-slide", {
 /* student */
 const studentForm = document.getElementById("student-form"),
   genderStudent = document.querySelector(".student-gender.active i").classList,
-  levelStudent = document.querySelector(".student-level.active").classList,
-  dataStudent = {};
+  levelStudent = document.querySelector(".student-level.active").textContent,
+  studentTable = document.getElementById("student-table");
+
 studentForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = studentForm.elements["name"].value;
   const surname = studentForm.elements["surname"].value;
+  const faculty = studentForm.elements["faculty"].value;
   const date = studentForm.elements["date"].value;
   const gender = genderStudent == "ri-men-line" ? "Masculin" : "Féminin";
   const level = levelStudent;
@@ -94,25 +96,27 @@ studentForm.addEventListener("submit", (e) => {
   const email = studentForm.elements["email"].value;
   const password = studentForm.elements["password"].value;
 
-  dataStudent = {
+  const dataStudent = {
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/nms-projet.appspot.com/o/students%2Fimages%2Fuser-icon-2098873_1280.png?alt=media&token=42389965-3167-4f87-8244-62d41c226b7b",
     name: name,
     surname: surname,
+    faculty: faculty,
     date: date,
     gender: gender,
     level: level,
     address: address,
     email: email,
-    password: password,
   };
 
-  setDocument("Students", email, dataStudent);
+  createUser(email, password, "Students", email, dataStudent);
 });
 
-/* teacher */
-const teacherForm = document.getElementById("student-form"),
-  genderTeacher = document.querySelector(".student-gender.active i").classList,
-  dataTeacher = {};
+getCollection("Students");
 
+/* teacher */
+const teacherForm = document.getElementById("teacher-form"),
+  genderTeacher = document.querySelector(".teacher-gender.active i").classList;
 teacherForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = teacherForm.elements["name"].value;
@@ -124,7 +128,9 @@ teacherForm.addEventListener("submit", (e) => {
   const email = teacherForm.elements["email"].value;
   const password = teacherForm.elements["password"].value;
 
-  dataTeacher = {
+  const dataTeacher = {
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/nms-projet.appspot.com/o/students%2Fimages%2Fuser-icon-2098873_1280.png?alt=media&token=42389965-3167-4f87-8244-62d41c226b7b",
     name: name,
     surname: surname,
     date: date,
@@ -132,16 +138,15 @@ teacherForm.addEventListener("submit", (e) => {
     department: dept,
     address: address,
     email: email,
-    password: password,
   };
 
-  setDocument("Teachers", email, dataTeacher);
+  createUser(email, password, "Teachers", email, dataTeacher);
 });
+getCollection("Teachers");
 
 /* jury */
-const jurytForm = document.getElementById("student-form"),
-  genderJury = document.querySelector(".student-gender.active i").classList,
-  dataJury = {};
+const jurytForm = document.getElementById("jury-form"),
+  genderJury = document.querySelector(".jury-gender.active i").classList;
 
 jurytForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -149,46 +154,51 @@ jurytForm.addEventListener("submit", (e) => {
   const surname = jurytForm.elements["surname"].value;
   const date = jurytForm.elements["date"].value;
   const gender = genderJury == "ri-men-line" ? "Masculin" : "Féminin";
-  const address = jurytForm.elements["address"].value;
   const email = jurytForm.elements["email"].value;
   const password = jurytForm.elements["password"].value;
 
-  dataJury = {
+  const dataJury = {
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/nms-projet.appspot.com/o/students%2Fimages%2Fuser-icon-2098873_1280.png?alt=media&token=42389965-3167-4f87-8244-62d41c226b7b",
     name: name,
     surname: surname,
     date: date,
     gender: gender,
-    address: address,
     email: email,
-    password: password,
   };
 
-  setDocument("Juries", email, dataJury);
+  createUser(email, password, "Juries", email, dataJury);
 });
+getCollection("Juries");
 
 /* company */
-const companyForm = document.getElementById("student-form"),
-  dataCompany = {};
+const companyForm = document.getElementById("company-form");
 
 companyForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const image = companyForm.elements["uploading"].value;
   const name = companyForm.elements["name"].value;
   const address = companyForm.elements["address"].value;
   const email = companyForm.elements["email"].value;
   const password = companyForm.elements["password"].value;
 
-  const imageUrl = setFile("CompanyLogo", takeFile.files[0].name, image);
-
-  dataCompany = {
-    image: imageUrl,
+  const updateCompany = {
+    folder: "CompanyLogo",
+    filename: takeFile.files[0].name,
+    file: takeFile.files[0],
+  };
+  const dataCompany = {
+    image: "",
     name: name,
     address: address,
     email: email,
-    password: password,
   };
 
-  setDocument("Juries", email, dataCompany);
+  createUser(email, password, "Companies", email, dataCompany, updateCompany);
 });
+getCollection("Companies");
 
 /* internship */
+
+document.getElementById("signout").addEventListener("click", () => {
+  logout();
+});

@@ -34,5 +34,18 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script type="module" src="../main.js"></script>
     <script src="./assets/js/student.js"></script>
+
+    <script type="module">
+      import { connectUser } from "../firebase.js";
+
+      const authentification = document.getElementById("form");
+      authentification.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = authentification.elements["email"].value;
+        const password = authentification.elements["password"].value;
+
+        connectUser(email, password);
+      });
+    </script>
   </body>
 </html>

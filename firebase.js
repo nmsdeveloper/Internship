@@ -49,10 +49,18 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 /* Auth */
-export const createUser = (email, password, reference, data) => {
+export const createUser = (
+  email,
+  password,
+  reference,
+  document,
+  data,
+  updateCompany = {}
+) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      setDocument(reference, document, data, updateCompany);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -89,7 +97,7 @@ export const statusUser = () => {
 export const logout = () => {
   signOut(auth)
     .then(() => {
-      window.location.href = "./authentification.html";
+      window.location.href = "../../index.html";
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -116,9 +124,16 @@ export const resetPassword = (email) => {
 };
 
 /* Firestore */
-export const setDocument = (reference, document, data) => {
+export const setDocument = (reference, document, data, updateCompany = {}) => {
   setDoc(doc(db, reference, document), data).then(() => {
-    window.location.reload();
+    if (reference == "Companies")
+      setFile(
+        updateCompany.folder,
+        updateCompany.filename,
+        updateCompany.file,
+        data.email
+      );
+    else window.location.reload();
   });
 };
 
@@ -127,7 +142,9 @@ export const setCollection = (reference, data) => {
 };
 
 export const updateDocument = (reference, document, data) => {
-  updateDoc(doc(db, reference, document), data).then(() => {});
+  updateDoc(doc(db, reference, document), data).then(() => {
+    window.location.reload();
+  });
 };
 
 export const deleteDocument = (reference, document, data) => {
@@ -139,8 +156,70 @@ export const getDocument = (reference, document) => {
 };
 
 export const getCollection = (reference) => {
-  getDocs(collection(db, reference)).forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
+  getDocs(collection(db, reference)).then((querySnap) => {
+    if (reference == "Students")
+      querySnap.forEach((doc) => {
+        var genre =
+          doc.data().gender == "Masculin"
+            ? `<i class="ri-men-line"></i>`
+            : `<i class="ri-women-line"></i>`;
+        document.getElementById("student-table").innerHTML += `
+        <tr>
+        <td><img src="${doc.data().image}" alt="" /></td>
+        <td>${doc.data().name} ${doc.data().surname}</td>
+        <td>${doc.data().date}</td>
+        <td>${genre}</td>
+        <td>${doc.data().address}</td>
+        <td>${doc.data().level}</td>
+        <td>${doc.data().email}</td>
+        </tr>
+        `;
+      });
+    if (reference == "Teachers")
+      querySnap.forEach((doc) => {
+        var genre =
+          doc.data().gender == "Masculin"
+            ? `<i class="ri-men-line"></i>`
+            : `<i class="ri-women-line"></i>`;
+        document.getElementById("teacher-table").innerHTML += `
+          <tr>
+            <td><img src="${doc.data().image}" alt="" /></td>
+            <td>${doc.data().name} ${doc.data().surname}</td>
+            <td>${doc.data().date}</td>
+            <td>${genre}</td>
+            <td>${doc.data().address}</td>
+            <td>${doc.data().department}</td>
+            <td>${doc.data().email}</td>
+          </tr>
+        `;
+      });
+    if (reference == "Juries")
+      querySnap.forEach((doc) => {
+        var genre =
+          doc.data().gender == "Masculin"
+            ? `<i class="ri-men-line"></i>`
+            : `<i class="ri-women-line"></i>`;
+        document.getElementById("jury-table").innerHTML += `
+          <tr>
+            <td><img src="${doc.data().image}" alt="" /></td>
+            <td>${doc.data().name} ${doc.data().surname}</td>
+            <td>${doc.data().date}</td>
+            <td>${genre}</td>
+            <td>${doc.data().email}</td>
+          </tr>
+        `;
+      });
+    else if (reference == "Companies")
+      querySnap.forEach((doc) => {
+        document.getElementById("company-table").innerHTML += `
+            <tr>
+              <td><img src="${doc.data().image}" alt="" /></td>
+              <td>${doc.data().name}</td>
+              <td>${doc.data().address}</td>
+              <td>${doc.data().email}</td>
+            </tr>
+          `;
+      });
   });
 };
 
@@ -153,7 +232,7 @@ export const getQueryWhere = (reference, field, value) => {
 };
 
 /* Storage */
-export const setFile = (folder, filename, file) => {
+export const setFile = (folder, filename, file, email = "") => {
   const uploadTask = uploadBytesResumable(
     ref(storage, `${folder}/${filename}`),
     file
@@ -181,7 +260,10 @@ export const setFile = (folder, filename, file) => {
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        return downloadURL;
+        const data = {
+          image: downloadURL,
+        };
+        if (folder == "CompanyLogo") updateDocument("Companies", email, data);
       });
     }
   );
