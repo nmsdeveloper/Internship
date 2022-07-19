@@ -14,3 +14,26 @@ import {
   setFile,
   getFile,
 } from "../../../firebase.js";
+
+
+var offer = new Swiper(".offer-slide", {
+  spaceBetween: 32,
+  centeredSlides: true,
+  slidesPerView: "auto",
+
+  navigation: {
+    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-button-next",
+  },
+});
+
+var intern = new Swiper(".intern-slide", {
+  spaceBetween: 32,
+  centeredSlides: true,
+  slidesPerView: "auto",
+
+  navigation: {
+    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-button-next",
+  },
+});

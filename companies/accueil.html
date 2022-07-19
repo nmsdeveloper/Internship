@@ -10,7 +10,7 @@
     />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="./assets/css/company.css" />
-    <title>Internship - Admin</title>
+    <title>Internship - Company</title>
   </head>
   <body>
     <main class="main">
@@ -86,16 +86,229 @@
 
         <section id="offer" class="offer section grid">
           <h1 class="section-title">Offre de stage<span>.</span></h1>
-        
-          <div class="section-container grid"></div>
+
+          <div class="section-container grid">
+            <div class="swiper offer-slide">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <article class="offer-card grid">
+                    <h2 class="offer-title">Administrateur R&eacute;seau</h2>
+                    <div class="offer-location">
+                      <i class="ri-map-pin-line"></i>
+                      <p class="offer-address">
+                        Jet d'eau, Dakar, S&eacute;n&eacute;gal.
+                      </p>
+                    </div>
+                    <p class="offer-description">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Nesciunt illum, similique vel temporibus maxime iure
+                      fugiat perspiciatis ratione...
+                    </p>
+                  </article>
+                </div>
+
+                <div class="swiper-slide">
+                  <article class="offer-card grid">
+                    <h2 class="offer-title">Administrateur R&eacute;seau</h2>
+                    <div class="offer-location">
+                      <i class="ri-map-pin-line"></i>
+                      <p class="offer-address">
+                        Jet d'eau, Dakar, S&eacute;n&eacute;gal.
+                      </p>
+                    </div>
+                    <p class="offer-description">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Nesciunt illum, similique vel temporibus maxime iure
+                      fugiat perspiciatis ratione...
+                    </p>
+                  </article>
+                </div>
+
+                <div class="swiper-slide">
+                  <article class="offer-card grid">
+                    <h2 class="offer-title">Administrateur R&eacute;seau</h2>
+                    <div class="offer-location">
+                      <i class="ri-map-pin-line"></i>
+                      <p class="offer-address">
+                        Jet d'eau, Dakar, S&eacute;n&eacute;gal.
+                      </p>
+                    </div>
+                    <p class="offer-description">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Nesciunt illum, similique vel temporibus maxime iure
+                      fugiat perspiciatis ratione...
+                    </p>
+                  </article>
+                </div>
+              </div>
+
+              <div class="swiper-button-prev">
+                <i class="ri-arrow-left-s-line"></i>
+              </div>
+              <div class="swiper-button-next">
+                <i class="ri-arrow-right-s-line"></i>
+              </div>
+            </div>
+            <div class="offer-add">
+              <form id="offer-form" class="section-form">
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input name="poste" type="text" placeholder="Poste" />
+                </div>
+
+                <div class="input-box">
+                  <div class="input-icon"><i class="ri-user-line"></i></div>
+                  <input name="address" type="text" placeholder="Adresse" />
+                </div>
+
+                <div class="input-box">
+                  <label for="internship-start">D&eacute;but</label>
+                  <input id="internship-start" name="date" type="date" />
+                </div>
+
+                <div class="input-box">
+                  <label for="internship-end">Fin</label>
+                  <input id="internship-end" name="date" type="date" />
+                </div>
+
+                <div class="input-desc">
+                  <label for="internship-description">Description</label>
+                  <textarea
+                    id="internship-description"
+                    name="description"
+                    type="text"
+                  ></textarea>
+                </div>
+
+                <div class="input-submit">
+                  <input type="submit" value="Ajouter" />
+                </div>
+              </form>
+            </div>
+          </div>
         </section>
 
         <section id="intern" class="intern section grid">
           <h1 class="section-title">Stagiaire<span>.</span></h1>
+
+          <div class="swiper intern-slide">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <article class="intern-card grid">
+                  <div class="intern-info grid">
+                    <img
+                      class="intern-image"
+                      src="../admin/assets/Screenshot (9).png"
+                      alt=""
+                    />
+
+                    <span class="intern-name">NDOUMBI MOAUNGO Samuel</span>
+                    <span class="intern-poste">
+                      Administrateur R&eacute;seau
+                    </span>
+                    <span class="intern-date">A commencer: 24.12.2022</span>
+                    <span class="remark-content">
+                      <label for="remark-1">Remarque: 12.04.2022</label>
+                      <p id="remark-1" class="remark-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptatibus rem, aperiam corrupti a nobis id ducimus
+                        odit ad alias itaque recusandae sequi. Accusantium,
+                        magni corrupti. Vitae ducimus animi quasi adipisci.
+                      </p>
+                    </span>
+                    <span class="intern-mission">
+                      <label for="mission">Attribuer: 12.03.2022</label>
+                      <div class="mission-list grid">
+                        <span class="mission-name">
+                          Lorem ipsum dolor sit amet consectetur
+                        </span>
+                        <span class="mission-name">
+                          Lorem ipsum dolor sit amet consectetur
+                        </span>
+                        <span class="mission-name">
+                          Lorem ipsum dolor sit amet consectetur
+                        </span>
+                        <span class="mission-name">
+                          Lorem ipsum dolor sit amet consectetur
+                        </span>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="intern-mission grid">
+                    <form id="remark-form" class="intern-form">
+                      <div class="input-desc">
+                        <label for="internship-remark">Remarque</label>
+                        <textarea
+                          id="internship-remark"
+                          name="remark"
+                        ></textarea>
+                      </div>
+
+                      <div class="input-submit intern-btn">
+                        <input type="submit" value="Ajouter" />
+                      </div>
+                    </form>
+                    <form id="mission-form" class="intern-form">
+                      <div class="input-box">
+                        <div class="input-icon">
+                          <i class="ri-user-line"></i>
+                        </div>
+                        <input
+                          class="intern-input"
+                          name="address"
+                          type="text"
+                          placeholder="S&eacute;parer chaque mission par ue virgule"
+                        />
+                      </div>
+                      <div class="input-submit intern-btn">
+                        <input type="submit" value="Ajouter" />
+                      </div>
+                    </form>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="swiper-button-prev">
+              <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <div class="swiper-button-next">
+              <i class="ri-arrow-right-s-line"></i>
+            </div>
+          </div>
         </section>
 
         <section id="company" class="company section grid">
           <h1 class="section-title">Entreprise<span>.</span></h1>
+
+          <div class="company-container">
+            <form id="company-form" class="company-form">
+              <img
+                src="../admin/assets/Orange-logo.jpg"
+                alt=""
+                class="company-image"
+              />
+
+              <div class="input-box">
+                <input
+                  class="input"
+                  name="company"
+                  type="text"
+                  value="Orange"
+                />
+              </div>
+              <div class="input-box">
+                <input
+                  name="address"
+                  type="text"
+                  value="Jet d'eau, Dakar, S&eacute;n&eacute;gal"
+                />
+              </div>
+              <div class="input-submit company-submit">
+                <input type="submit" value="Modifier" />
+              </div>
+            </form>
+          </div>
         </section>
       </div>
     </main>
