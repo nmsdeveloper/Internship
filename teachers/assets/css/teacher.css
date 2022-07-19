@@ -81,18 +81,6 @@
   color: var(--text-color-alt);
   margin-bottom: 0.5rem;
 }
-.internship-apply {
-  padding: 0.5rem;
-  background-color: var(--primary-color-light);
-  border-radius: var(--button-radius);
-  color: var(--text-color);
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-}
-.internship-apply:hover {
-  color: var(--title-color);
-  background-color: var(--primary-color-alt);
-}
 
 /* Archive */
 
@@ -195,104 +183,32 @@
   overflow-y: auto;
   gap: 1rem 1.5rem;
 }
-.archive-content {
+.archive-box {
   width: 100%;
+  height: max-content;
   background: var(--body-color);
   border-radius: 5px;
   padding: 30px;
   box-shadow: var(--box-shadow);
-}
-.archive-content h1 {
-  color: var(--primary-color-alt);
-  font-size: 27px;
-  font-weight: 600;
-  text-align: center;
-}
-.archive-content form {
-  height: 167px;
   display: flex;
-  cursor: pointer;
-  margin: 30px 0;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  border-radius: 5px;
-  border: 2px dashed var(--primary-color);
+  row-gap: 0.5rem;
+  border-radius: var(--card-radius);
 }
-form :where(i, p) {
-  color: var(--primary-color);
-}
-form i {
-  font-size: 50px;
-}
-form p {
-  margin-top: 15px;
-  font-size: 16px;
-}
-section .row {
-  margin-bottom: 10px;
-  background: var(--primary-color-light);
-  list-style: none;
-  padding: 15px 20px;
-  border-radius: 5px;
+.archive-box div {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-section .row i {
-  color: var(--primary-color-alt);
-  font-size: 30px;
-}
-section .details span {
-  font-size:var(--smaller-font-size);
-  color: var(--title-color);
-}
-.progress-area .row .content {
-  width: 100%;
-  margin-left: 15px;
-}
-.progress-area .details {
-  display: flex;
-  align-items: center;
-  margin-bottom: 7px;
-  justify-content: space-between;
-}
-.progress-area .content .progress-bar {
-  height: 6px;
-  width: 100%;
-  margin-bottom: 4px;
-  background: var(--light-color);
-  border-radius: 30px;
-}
-.content .progress-bar .progress {
-  height: 100%;
-  width: 0%;
-  background: var(--primary-color);
-  border-radius: inherit;
-}
-.uploaded-area {
-  max-height: 232px;
-  overflow-y: scroll;
-}
-.uploaded-area.onprogress {
-  max-height: 150px;
-}
-.uploaded-area::-webkit-scrollbar {
-  width: 0px;
-}
-.uploaded-area .row .content {
-  display: flex;
-  align-items: center;
-}
-.uploaded-area .row .details {
-  display: flex;
-  margin-left: 15px;
   flex-direction: column;
+  row-gap: 0.25rem;
 }
-.uploaded-area .row .details .size {
+.archive-box i {
+  font-size: var(--normal-font-size);
+  color: var(--primary-color-alt);
+}
+.archive-name {
   color: var(--title-color);
-  font-size: 11px;
+  font-size: var(--smaller-font-size);
 }
-.uploaded-area i.ri-check-line {
-  font-size: 16px;
+.archive-file {
+  color: var(--text-color-alt);
+  font-size: var(--smaller-font-size);
 }
