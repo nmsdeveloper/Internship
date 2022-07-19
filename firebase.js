@@ -16,6 +16,7 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  deleteField,
   getDoc,
   getDocs,
   query,
@@ -149,24 +150,26 @@ export const updateDocument = (reference, document, data) => {
   });
 };
 
-export const deleteDocument = (reference, document, data) => {
-  deleteDoc(doc(db, reference, document), data).then(() => {});
+export const deleteDocument = (reference, document) => {
+  deleteDoc(doc(db, reference, document)).then(() => {
+    window.location.reload();
+  });
 };
 
 export const getDocument = (reference, document) => {
   getDoc(doc(db, reference, document)).then((docSnap) => {
     if (reference == "Companies") {
-      window.localStorage.setItem("Image", docSnap.data().image);
-      window.localStorage.setItem("Company", docSnap.data().name);
-      window.localStorage.setItem("Address", docSnap.data().address);
+      window.localStorage.setItem("ImageCompany", docSnap.data().image);
+      window.localStorage.setItem("CompanyCompany", docSnap.data().name);
+      window.localStorage.setItem("AddressCompany", docSnap.data().address);
     } else if (reference == "Students") {
-      window.localStorage.setItem("Name", docSnap.data().name);
-      window.localStorage.setItem("Surname", docSnap.data().surname);
-      window.localStorage.setItem("Faculty", docSnap.data().faculty);
-      window.localStorage.setItem("Address", docSnap.data().address);
-      window.localStorage.setItem("Image", docSnap.data().image);
-      window.localStorage.setItem("Level", docSnap.data().level);
-      window.localStorage.setItem("Gender", docSnap.data().gender);
+      window.localStorage.setItem("NameStudent", docSnap.data().name);
+      window.localStorage.setItem("SurnameStudent", docSnap.data().surname);
+      window.localStorage.setItem("FacultyStudent", docSnap.data().faculty);
+      window.localStorage.setItem("AddressStudent", docSnap.data().address);
+      window.localStorage.setItem("ImageStudent", docSnap.data().image);
+      window.localStorage.setItem("LevelStudent", docSnap.data().level);
+      window.localStorage.setItem("GenderStudent", docSnap.data().gender);
     }
   });
 };
@@ -348,10 +351,35 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
                 </p>
                 <button id="${
                   doc.id
-                }" class="internship-apply">Postuler</button>
+                }" class="internship-apply">Postuler <span class="${
+            doc.data().email
+          }"></span></button>
               </div>
             </article>
           `;
+        });
+
+        const apply = document.querySelectorAll(".internship-apply");
+        const applySpan = document.querySelectorAll(".internship-apply span");
+        const internshipTitle = document.querySelectorAll(".internship-title");
+        const internshipCompany = document.querySelectorAll(".internship-company");
+        
+        apply.forEach((ap, index) => {
+          ap.addEventListener("click", () => {
+            setDocument("Requests", window.localStorage.getItem("EmailStudent"), {
+              status: false,
+              offer: ap.id,
+              image: window.localStorage.getItem("ImageStudent"),
+              email: window.localStorage.getItem("EmailStudent"),
+              name: window.localStorage.getItem("NameStudent"),
+              surname: window.localStorage.getItem("SurnameStudent"),
+              level: window.localStorage.getItem("LevelStudent"),
+              faculty: window.localStorage.getItem("FacultyStudent"),
+              poste: internshipTitle[index].textContent.trim(),
+              companyEmail: applySpan[index].classList.toString(),
+              company: internshipCompany[index].textContent.trim(),
+            });
+          });
         });
       } else if (reference == "Offers") {
         querySnap.forEach((doc) => {
@@ -381,6 +409,57 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
             prevEl: ".swiper-button-prev",
             nextEl: ".swiper-button-next",
           },
+        });
+      } else if (reference == "Requests") {
+        querySnap.forEach((doc) => {
+          document.getElementById("request-container").innerHTML += `
+            <article class="request-card">
+              <img
+                class="request-image"
+                src="${doc.data().image}"
+                alt=""
+              />
+              <div class="request-data grid">
+                <h3 class="request-name">${doc.data().name} ${
+            doc.data().surname
+          }</h3>
+                <div class="request-education">
+                  <span class="request-faculty">
+                  ${doc.data().faculty}
+                  </span>
+                  <span class="request-level">${doc.data().level}</span>
+                </div>
+                <p class="request-poste">
+                  <span>Postule:</span> ${doc.data().poste}
+                </p>
+                <div class="request-button">
+                  <button id="${
+                    doc.data().email
+                  }" class="request-accept">Accepter</button>
+                  <button id="${
+                    doc.data().email
+                  }2" class="request-refuse">Refuser</button>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+        const accept = document.querySelectorAll(".request-accept");
+        const refuse = document.querySelectorAll(".request-refuse");
+
+        accept.forEach((ac) => {
+          ac.addEventListener("click", () => {
+            updateDocument("Requests", ac.id, {
+              status: true,
+              companyEmail: deleteField(),
+            });
+          });
+        });
+
+        refuse.forEach((rf) => {
+          rf.addEventListener("click", () => {
+            deleteDocument("Requests", rf.id.slice(0, -1));
+          });
         });
       }
     }

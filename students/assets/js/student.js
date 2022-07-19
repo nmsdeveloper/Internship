@@ -14,16 +14,15 @@ import {
   getFile,
 } from "../../../firebase.js";
 
-const email = window.localStorage.getItem("Email");
-getDocument("Students", email);
+const email = window.localStorage.getItem("EmailStudent");
 
-const currnetImage = window.localStorage.getItem("Image");
-const currnetName = window.localStorage.getItem("Name");
-const currnetSurname = window.localStorage.getItem("Surname");
-const currentFaculty = window.localStorage.getItem("Faculty");
-const currentAddress = window.localStorage.getItem("Address");
-const currentlevel = window.localStorage.getItem("Level");
-const currentGender = window.localStorage.getItem("Gender");
+const currnetImage = window.localStorage.getItem("ImageStudent");
+const currnetName = window.localStorage.getItem("NameStudent");
+const currnetSurname = window.localStorage.getItem("SurnameStudent");
+const currentFaculty = window.localStorage.getItem("FacultyStudent");
+const currentAddress = window.localStorage.getItem("AddressStudent");
+const currentlevel = window.localStorage.getItem("LevelStudent");
+const currentGender = window.localStorage.getItem("GenderStudent");
 
 const imageInput = document.getElementById("image-input");
 const nameInput = document.getElementById("name-input");
@@ -129,7 +128,14 @@ profileForm.addEventListener("submit", (e) => {
 getQueryWhere("Offers", "faculty", currentFaculty, "Student");
 
 document.getElementById("signout").addEventListener("click", () => {
-  window.localStorage.setItem("Email", "");
+  window.localStorage.setItem("EmailStudent", "");
+  window.localStorage.setItem("ImageStudent", "");
+  window.localStorage.setItem("NameStudent", "");
+  window.localStorage.setItem("SurnameStudent", "");
+  window.localStorage.setItem("FacultyStudent", "");
+  window.localStorage.setItem("AddressStudent", "");
+  window.localStorage.setItem("LevelStudent", "");
+  window.localStorage.setItem("GenderStudent", "");
 
   logout();
 });

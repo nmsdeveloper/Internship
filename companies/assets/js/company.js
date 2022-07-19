@@ -13,12 +13,12 @@ import {
   setFile,
   getFile,
 } from "../../../firebase.js";
-const email = window.localStorage.getItem("Email");
-getDocument("Companies", email);
+const email = window.localStorage.getItem("EmailCompany");
+getQueryWhere("Requests", "companyEmail", email);
 
-const currentCompany = window.localStorage.getItem("Company");
-const currentAddress = window.localStorage.getItem("Address");
-const currnetImage = window.localStorage.getItem("Image");
+const currentCompany = window.localStorage.getItem("CompanyCompany");
+const currentAddress = window.localStorage.getItem("AddressCompany");
+const currnetImage = window.localStorage.getItem("ImageCompany");
 
 const imageInput = document.getElementById("image-input");
 const companyInput = document.getElementById("company-input");
@@ -85,10 +85,10 @@ var intern = new Swiper(".intern-slide", {
 });
 
 document.getElementById("signout").addEventListener("click", () => {
-  window.localStorage.setItem("Email", "");
-  window.localStorage.setItem("Image", "");
-  window.localStorage.setItem("Address", "");
-  window.localStorage.setItem("Company", "");
+  window.localStorage.setItem("EmailCompany", "");
+  window.localStorage.setItem("ImageCompany", "");
+  window.localStorage.setItem("AddressCompany", "");
+  window.localStorage.setItem("CompanyCompany", "");
 
   logout();
 });

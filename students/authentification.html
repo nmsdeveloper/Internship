@@ -32,11 +32,11 @@
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script type="module" src="../main.js"></script>
-    <script src="./assets/js/student.js"></script>
+    <script src="../main.js"></script>
+    <script type="module" src="./assets/js/student.js"></script>
 
     <script type="module">
-      import { connectUser } from "../firebase.js";
+      import { connectUser, getDocument } from "../firebase.js";
 
       const authentification = document.getElementById("form");
       authentification.addEventListener("submit", (e) => {
@@ -44,7 +44,9 @@
         const email = authentification.elements["email"].value;
         const password = authentification.elements["password"].value;
 
-        window.localStorage.setItem("Email", email);
+        window.localStorage.setItem("EmailStudent", email);
+        getDocument("Students", email);
+
         connectUser(email, password);
       });
     </script>
