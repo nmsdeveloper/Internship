@@ -257,3 +257,44 @@ video {
 .swiper-button-next {
   right: calc(50% - 3rem);
 }
+
+/* Form */
+.form-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+.form {
+  width: 400px;
+  height: auto;
+  display: grid;
+  row-gap: 1rem;
+}
+.input-box {
+  padding: 1.5rem 0.75rem;
+  display: flex;
+  column-gap: 1.25rem;
+  align-items: center;
+  border-radius: var(--button-radius);
+  box-shadow: var(--box-shadow);
+}
+.input-box i {
+  color: var(--primary-color-alt);
+}
+.input-box input,
+.input-box input::placeholder {
+  color: var(--subtitle-color);
+}
+.input-submit {
+  padding: 1.5rem 0.75rem;
+  border-radius: var(--button-radius);
+  background-color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input-submit input {
+  color: var(--white-color);
+}
