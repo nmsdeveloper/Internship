@@ -1,17 +1,10 @@
 import {
-  createUser,
-  statusUser,
   logout,
-  resetPassword,
-  setDocument,
-  setCollection,
   updateDocument,
   deleteDocument,
   getDocument,
-  getCollection,
   getQueryWhere,
   setFile,
-  getFile,
 } from "../../../firebase.js";
 
 const email = window.localStorage.getItem("EmailStudent");
@@ -126,7 +119,3 @@ document.getElementById("signout").addEventListener("click", () => {
 
   logout();
 });
-
-// è
-// é
-// L'etudiant sera charger de l'administration du réseau de l'entreprise sur la supervision du chef de departement réseau.

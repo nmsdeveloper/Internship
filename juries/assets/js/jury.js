@@ -1,24 +1,15 @@
 import {
-  createUser,
-  connectUser,
-  statusUser,
   logout,
-  resetPassword,
-  setDocument,
-  setCollection,
   updateDocument,
-  deleteDocument,
   getDocument,
   getCollection,
-  getQueryWhere,
-  setFile,
-  getFile,
 } from "../../../firebase.js";
 
 const email = window.localStorage.getItem("EmailJury");
 getDocument("Juries", email);
 getCollection("Offers");
 getCollection("Requests", "Jury");
+getCollection("Files");
 
 const currnetImage = window.localStorage.getItem("ImageJury");
 const currnetName = window.localStorage.getItem("NameJury");

@@ -95,16 +95,6 @@ export const connectUser = (reference = "Admin", email, password) => {
     });
 };
 
-export const statusUser = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-    } else {
-      window.location.href = "./authentification.html";
-    }
-  });
-};
-
 export const logout = () => {
   signOut(auth)
     .then(() => {
@@ -118,7 +108,7 @@ export const logout = () => {
     });
 };
 
-export const resetPassword = (email) => {
+const resetPassword = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
       window.alert(
@@ -135,7 +125,7 @@ export const resetPassword = (email) => {
 };
 
 /* Firestore */
-export const setDocument = (reference, document, data, update = {}) => {
+const setDocument = (reference, document, data, update = {}) => {
   setDoc(doc(db, reference, document), data).then(() => {
     if (reference == "Companies") setFile(update, data.email);
     else if (reference == "Files") setFile(update, data.email);
@@ -419,6 +409,48 @@ export const getCollection = (reference, slide = "") => {
               text: remark,
             }),
           });
+        });
+      });
+    } else if (reference == "Files") {
+      querySnap.forEach((doc) => {
+        doc.data().rapport.forEach((fr) => {
+          document.getElementById("archive-container").innerHTML += `
+            <div id="${fr.fileUrl}" class="archive-box">
+                <i class="ri-download-line"></i>
+                <div>
+                  <span class="archive-name">${fr.name} ${fr.surname}</span>
+                  <span class="archive-file">${fr.filename}</span>
+                  <span class="archive-date">${fr.date}</span>
+                  <span class="archive-email">${fr.email}</span>
+                </div>
+              </div>
+            `;
+        });
+        doc.data().resume.forEach((fr) => {
+          document.getElementById("archive-container").innerHTML += `
+            <div id="${fr.fileUrl}" class="archive-box">
+                <i class="ri-download-line"></i>
+                <div>
+                  <span class="archive-name">${fr.name} ${fr.surname}</span>
+                  <span class="archive-file">${fr.filename}</span>
+                  <span class="archive-date">${fr.date}</span>
+                  <span class="archive-email">${fr.email}</span>
+                </div>
+              </div>
+            `;
+        });
+        doc.data().file.forEach((fr) => {
+          document.getElementById("archive-container").innerHTML += `
+            <div id="${fr.fileUrl}" class="archive-box">
+                <i class="ri-download-line"></i>
+                <div>
+                  <span class="archive-name">${fr.name} ${fr.surname}</span>
+                  <span class="archive-file">${fr.filename}</span>
+                  <span class="archive-date">${fr.date}</span>
+                  <span class="archive-email">${fr.email}</span>
+                </div>
+              </div>
+            `;
         });
       });
     }
@@ -949,7 +981,7 @@ export const setFile = (dataFile, email = "") => {
   );
 };
 
-export const getFile = (folder, filename) => {
+const getFile = (folder, filename) => {
   getDownloadURL(ref(storage, `${folder}/${filename}`))
     .then((url) => {
       const xhr = new XMLHttpRequest();

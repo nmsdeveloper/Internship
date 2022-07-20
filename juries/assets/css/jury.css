@@ -314,3 +314,10 @@ label,
 .input-submit input {
   color: var(--white-color);
 }
+
+.archive-date,
+.archive-email {
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-normal);
+  color: var(--primary-color-alt);
+}

@@ -1,17 +1,9 @@
 import {
-  createUser,
-  statusUser,
   logout,
-  resetPassword,
-  setDocument,
   setCollection,
   updateDocument,
-  deleteDocument,
   getDocument,
-  getCollection,
   getQueryWhere,
-  setFile,
-  getFile,
 } from "../../../firebase.js";
 const email = window.localStorage.getItem("EmailCompany");
 getDocument("Companies", email);

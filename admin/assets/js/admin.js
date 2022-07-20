@@ -1,19 +1,11 @@
 import {
   createUser,
-  statusUser,
   logout,
   newOffer,
   total,
-  resetPassword,
-  setDocument,
   setCollection,
-  updateDocument,
-  deleteDocument,
-  getDocument,
   getCollection,
   getQueryWhere,
-  setFile,
-  getFile,
 } from "../../../firebase.js";
 
 const removeActive = (genderId) => {
