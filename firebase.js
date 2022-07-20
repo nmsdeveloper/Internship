@@ -453,6 +453,17 @@ export const getCollection = (reference, slide = "") => {
             `;
         });
       });
+
+      document.querySelectorAll(".archive-box").forEach((ar, index) => {
+        ar.addEventListener("click", () => {
+          const archiveBox = document.querySelectorAll(".archive-box");
+          archiveBox.forEach((ar) => {
+            ar.addEventListener("click", () => {
+              getFile(ar.id);
+            });
+          });
+        });
+      });
     }
   });
 };
@@ -981,23 +992,10 @@ export const setFile = (dataFile, email = "") => {
   );
 };
 
-const getFile = (folder, filename) => {
-  getDownloadURL(ref(storage, `${folder}/${filename}`))
-    .then((url) => {
-      const xhr = new XMLHttpRequest();
-      xhr.responseType = "blob";
-      xhr.onload = (event) => {
-        const blob = xhr.response;
-      };
-      xhr.open("GET", url);
-      xhr.send();
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      window.alert(`${errorCode}: ${errorMessage}`);
-    });
+const getFile = (fileUrl) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", fileUrl);
+  xhr.send();
 };
 
 export const total = (reference) => {
