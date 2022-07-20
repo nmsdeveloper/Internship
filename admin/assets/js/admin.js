@@ -2,6 +2,8 @@ import {
   createUser,
   statusUser,
   logout,
+  newOffer,
+  total,
   resetPassword,
   setDocument,
   setCollection,
@@ -182,7 +184,12 @@ internshipForm.addEventListener("submit", (e) => {
 getQueryWhere("Offers", "attribute", false, "Admin");
 getCollection("Faculty");
 
-
 document.getElementById("signout").addEventListener("click", () => {
   logout();
 });
+
+total("Students");
+total("Teachers");
+total("Juries");
+total("Companies");
+newOffer("Offers");

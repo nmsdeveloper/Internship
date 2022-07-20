@@ -17,3 +17,9 @@ const activeLink = (itemId, linkId) => {
 };
 
 activeLink(".nav-item", ".nav-link");
+
+const themeBtn = document.getElementById("theme");
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+});

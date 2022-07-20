@@ -33,6 +33,7 @@ const facultyInput = document.getElementById("faculty-input");
 const addressInput = document.getElementById("address-input");
 const levelInput = document.getElementById("level-input");
 const genderInput = document.getElementById("gender-input");
+const emailInput = document.getElementById("email-input");
 imageInput.src = currnetImage;
 nameInput.value = currnetName;
 surnameInput.value = currnetSurname;
@@ -40,6 +41,7 @@ facultyInput.value = currentFaculty;
 addressInput.value = currentAddress;
 levelInput.value = currentlevel;
 genderInput.value = currentGender;
+emailInput.value = email;
 
 const profileForm = document.getElementById("profile-form");
 profileForm.addEventListener("submit", (e) => {
@@ -128,6 +130,12 @@ profileForm.addEventListener("submit", (e) => {
 
 /* Request */
 getQueryWhere("Offers", "faculty", currentFaculty, "Student");
+
+document.getElementById("remove-intern").addEventListener("click", () => {
+  if (window.confirm("Avez-vous terminer votre stage?")) {
+    deleteDocument("Requests", email);
+  }
+});
 
 document.getElementById("signout").addEventListener("click", () => {
   window.localStorage.setItem("EmailStudent", "");

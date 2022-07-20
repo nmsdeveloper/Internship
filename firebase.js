@@ -72,11 +72,20 @@ export const createUser = (
     });
 };
 
-export const connectUser = (email, password) => {
+export const connectUser = (reference = "Admin", email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      window.location.href = "./accueil.html";
+      if (reference != "Admin")
+        getDoc(doc(db, reference, email)).then((docSnap) => {
+          if (docSnap.exists()) {
+            window.location.href = "./accueil.html";
+          } else {
+            window.alert("Email ne correspond pas...");
+            logout();
+          }
+        });
+      else window.location.href = "./accueil.html";
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -171,6 +180,20 @@ export const getDocument = (reference, documents) => {
       window.localStorage.setItem("ImageStudent", docSnap.data().image);
       window.localStorage.setItem("LevelStudent", docSnap.data().level);
       window.localStorage.setItem("GenderStudent", docSnap.data().gender);
+    } else if (reference == "Teachers") {
+      window.localStorage.setItem("NameTeacher", docSnap.data().name);
+      window.localStorage.setItem("SurnameTeacher", docSnap.data().surname);
+      window.localStorage.setItem("DeptTeacher", docSnap.data().department);
+      window.localStorage.setItem("AddressTeacher", docSnap.data().address);
+      window.localStorage.setItem("ImageTeacher", docSnap.data().image);
+      window.localStorage.setItem("DateTeacher", docSnap.data().date);
+      window.localStorage.setItem("EmailTeacher", docSnap.data().email);
+    } else if (reference == "Juries") {
+      window.localStorage.setItem("NameJury", docSnap.data().name);
+      window.localStorage.setItem("SurnameJury", docSnap.data().surname);
+      window.localStorage.setItem("ImageJury", docSnap.data().image);
+      window.localStorage.setItem("DateJury", docSnap.data().date);
+      window.localStorage.setItem("EmailJury", docSnap.data().email);
     } else if (reference == "Requests") {
       docSnap.data().missions.forEach((miss) => {
         document.getElementById("profile-mission").innerHTML += `
@@ -202,7 +225,7 @@ export const getDocument = (reference, documents) => {
 
 export const getCollection = (reference, slide = "") => {
   getDocs(collection(db, reference)).then((querySnap) => {
-    if (reference == "Students")
+    if (reference == "Students") {
       querySnap.forEach((doc) => {
         var genre =
           doc.data().gender == "Masculin"
@@ -220,7 +243,7 @@ export const getCollection = (reference, slide = "") => {
         </tr>
         `;
       });
-    else if (reference == "Teachers")
+    } else if (reference == "Teachers") {
       querySnap.forEach((doc) => {
         var genre =
           doc.data().gender == "Masculin"
@@ -238,7 +261,7 @@ export const getCollection = (reference, slide = "") => {
           </tr>
         `;
       });
-    else if (reference == "Juries")
+    } else if (reference == "Juries") {
       querySnap.forEach((doc) => {
         var genre =
           doc.data().gender == "Masculin"
@@ -254,7 +277,7 @@ export const getCollection = (reference, slide = "") => {
           </tr>
         `;
       });
-    else if (reference == "Companies")
+    } else if (reference == "Companies") {
       querySnap.forEach((doc) => {
         document.getElementById("company-table").innerHTML += `
             <tr>
@@ -265,12 +288,145 @@ export const getCollection = (reference, slide = "") => {
             </tr>
           `;
       });
-    else if (reference == "Faculty")
+    } else if (reference == "Faculty") {
       querySnap.forEach((doc) => {
         document.getElementById("admin-popup").innerHTML += `
         <div class="internship-option">${doc.data().faculty}</div>
         `;
       });
+    } else if (reference == "Offers") {
+      querySnap.forEach((doc) => {
+        document.getElementById("internship-cnt").innerHTML += `
+            <article class="internship-card grid">
+              <div class="internship-group">
+                <img
+                  class="internship-logo"
+                  src="${doc.data().image}"
+                  alt=""
+                />
+
+                <div class="internship-location">
+                  <i class="ri-map-pin-line"></i>
+                  <p class="internship-address">
+                  ${doc.data().address}.
+                  </p>
+                </div>
+              </div>
+
+              <div class="internship-data">
+                <h2 class="internship-title">${doc.data().poste}</h2>
+                <h6 class="internship-company">${doc.data().name}</h6>
+                <p class="internship-description">
+                ${doc.data().description}
+                </p>
+              </div>
+            </article>
+          `;
+      });
+    } else if (reference == "Requests") {
+      querySnap.forEach((doc, index) => {
+        let remarks = "",
+          missions = "";
+        doc.data().remarks.forEach((rms) => {
+          remarks += `
+            <span class="remark-content">
+              <label for="remark-${index}">Remarque: ${
+            rms.date == undefined ? "" : rms.date
+          }</label>
+              <p id="remark-${index}" class="remark-text">
+              ${rms.text == undefined ? "" : rms.text}
+              </p>
+            </span>
+          `;
+        });
+        doc.data().missions.forEach((miss) => {
+          missions += `
+            <span class="intern-mission">
+              <label for="mission">Mission: ${
+                miss.date == undefined ? "" : miss.date
+              }</label>
+              <div class="mission-list grid">
+                <span class="mission-name">
+                ${miss.text == undefined ? "" : miss.text}
+                </span>
+              </div>
+            </span>
+          `;
+        });
+
+        document.getElementById("intern-wrapper").innerHTML += `
+          <div class="swiper-slide">
+            <article class="intern-card grid">
+              <div class="intern-info grid">
+                <img
+                  class="intern-image"
+                  src="${doc.data().image}"
+                  alt=""
+                />
+
+                <span class="intern-name">${doc.data().name} ${
+          doc.data().surname
+        }</span>
+                <span class="intern-poste">
+                ${doc.data().poste}
+                </span>
+                <span class="intern-date">A commencer: ${doc.data().date}</span>
+                ${missions}
+                ${remarks}
+              </div>
+              <div class="intern-mission grid">
+              <form class="intern-form remark-form">
+                <div class="input-desc">
+                  <label for="internship-remark${index}">Remarque</label>
+                    <textarea
+                      id="internship-remark${index}"
+                      class="internship-remark"
+                      name="remark"
+                    ></textarea>
+                    <span id="${doc.data().email}"></span>
+                  </div>
+
+                  <div class="input-submit intern-btn">
+                    <input type="submit" value="Ajouter" />
+                  </div>
+                </form>
+              </div>
+            </article>
+          </div>
+        `;
+      });
+
+      const remarkForm = document.querySelectorAll(".remark-form"),
+        emailIntern = document.querySelectorAll(".input-desc span");
+
+      remarkForm.forEach((rF, index) => {
+        rF.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const remark = rF.elements["remark"].value;
+
+          const date = new Date();
+          let currMonth = date.getUTCMonth() + 1;
+          let currYear = date.getUTCFullYear();
+          let currDay = date.getUTCDate();
+          let name =
+            slide == "Teacher"
+              ? `${window.localStorage.getItem(
+                  "NameTeacher"
+                )} ${window.localStorage.getItem("SurnameTeacher")}`
+              : `${window.localStorage.getItem(
+                  "NameJury"
+                )} ${window.localStorage.getItem("SurnameJury")}`;
+
+          updateDocument("Requests", emailIntern[index].id, {
+            remarks: arrayUnion({
+              name: name,
+              date: `${currDay}.${currMonth}.${currYear}`,
+              text: remark,
+            }),
+          });
+        });
+      });
+    }
   });
 };
 
@@ -411,8 +567,20 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
                     faculty: window.localStorage.getItem("FacultyStudent"),
                     poste: internshipTitle[index].textContent.trim(),
                     companyEmail: applySpan[index].classList.toString(),
-                    missions: [""],
-                    remarks: [""],
+                    missions: [
+                      {
+                        date: "",
+                        name: "",
+                        text: "",
+                      },
+                    ],
+                    remarks: [
+                      {
+                        date: "",
+                        name: "",
+                        text: "",
+                      },
+                    ],
                   }
                 );
               }
@@ -506,12 +674,10 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
                   <div class="input-desc">
                     <label for="internship-remark${index}">Remarque</label>
                       <textarea
-                        id="internship-remark${index}"
-                        class="internship-remark"
-                        name="remark"
-                      >
-                      
-                      </textarea>
+                      id="internship-remark${index}"
+                      class="internship-remark"
+                      name="remark"
+                    ></textarea>
                       <span id="${doc.data().email}"></span>
                     </div>
 
@@ -699,4 +865,76 @@ export const getFile = (folder, filename) => {
 
       window.alert(`${errorCode}: ${errorMessage}`);
     });
+};
+
+export const total = (reference) => {
+  getDocs(collection(db, reference)).then((querySnap) => {
+    if (reference == "Students") {
+      let i = 0;
+      querySnap.forEach(() => {
+        i++;
+      });
+      document.getElementById("student-effective").innerHTML = `
+        <i class="ri-user-3-line"></i>
+        <div class="effective-data">
+          <span class="effective-number">${i}</span>
+          <h3 class="effective-title">Total Etudiant(s)</h3>
+        </div>
+      `;
+    } else if (reference == "Teachers") {
+      let i = 0;
+      querySnap.forEach(() => {
+        i++;
+      });
+      document.getElementById("teacher-effective").innerHTML = `
+        <i class="ri-user-voice-line"></i>
+        <div class="effective-data">
+          <span class="effective-number">${i}</span>
+          <h3 class="effective-title">Total Professeur(s)</h3>
+        </div>
+      `;
+    } else if (reference == "Juries") {
+      let i = 0;
+      querySnap.forEach(() => {
+        i++;
+      });
+      document.getElementById("jury-effective").innerHTML = `
+        <i class="ri-file-user-line"></i>
+        <div class="effective-data">
+          <span class="effective-number">${i}</span>
+          <h3 class="effective-title">Total Jury(s)</h3>
+        </div>
+      `;
+    } else if (reference == "Companies") {
+      let i = 0;
+      querySnap.forEach(() => {
+        i++;
+      });
+      document.getElementById("company-effective").innerHTML = `
+        <i class="ri-building-4-line"></i>
+        <div class="effective-data">
+          <span class="effective-number">${i}</span>
+          <h3 class="effective-title">Total Entreprise(s)</h3>
+        </div>
+      `;
+    }
+  });
+};
+
+export const newOffer = (reference) => {
+  getDocs(
+    query(collection(db, reference), where("attribute", "==", false))
+  ).then((querySnap) => {
+    let i = 0;
+    querySnap.forEach(() => {
+      i++;
+    });
+    document.getElementById("offer-effective").innerHTML = `
+        <i class="ri-file-list-line"></i>
+        <div class="effective-data">
+          <span class="effective-number">${i}</span>
+          <h3 class="effective-title">Nouvelles Offre(s)</h3>
+        </div>
+      `;
+  });
 };
