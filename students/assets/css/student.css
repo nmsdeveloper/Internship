@@ -102,9 +102,11 @@
   height: 100%;
   grid-template-columns: repeat(2, 1fr);
 }
+
+.profile-mission,
 .profile-remark {
   width: 100%;
-  height: 83vh;
+  height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -112,6 +114,11 @@
   overflow-y: auto;
 }
 
+.mission-remark {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+}
+.mission-card,
 .remark-card {
   width: 70%;
   height: auto;
@@ -119,16 +126,25 @@
   border-radius: var(--button-radius);
   background-color: var(--primary-color-light);
 }
+.mission-title,
+.remark-title {
+  color: var(--primary-color-alt);
+  font-size: var(--tiny-font-size);
+  font-weight: var(--font-bold);
+}
+.mission-name,
 .remark-name {
   color: var(--title-color);
   font-size: var(--small-font-size);
   font-weight: var(--font-bold);
 }
+.mission-date,
 .remark-date {
   color: var(--subtitle-color);
   font-size: var(--smaller-font-size);
   font-weight: var(--font-normal);
 }
+.mission-text,
 .remark-text {
   color: var(--text-color);
   font-size: var(--tiny-font-size);
@@ -244,7 +260,7 @@ section .row i {
   font-size: 30px;
 }
 section .details span {
-  font-size:var(--smaller-font-size);
+  font-size: var(--smaller-font-size);
   color: var(--title-color);
 }
 .progress-area .row .content {

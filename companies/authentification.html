@@ -45,7 +45,6 @@
         const password = authentification.elements["password"].value;
 
         window.localStorage.setItem("EmailCompany", email);
-        getDocument("Companies", email);
 
         connectUser(email, password);
       });

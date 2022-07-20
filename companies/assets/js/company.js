@@ -14,6 +14,7 @@ import {
   getFile,
 } from "../../../firebase.js";
 const email = window.localStorage.getItem("EmailCompany");
+getDocument("Companies", email);
 getQueryWhere("Requests", "companyEmail", email);
 
 const currentCompany = window.localStorage.getItem("CompanyCompany");

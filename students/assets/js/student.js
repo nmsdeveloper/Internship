@@ -15,6 +15,8 @@ import {
 } from "../../../firebase.js";
 
 const email = window.localStorage.getItem("EmailStudent");
+getDocument("Students", email);
+getDocument("Requests", email);
 
 const currnetImage = window.localStorage.getItem("ImageStudent");
 const currnetName = window.localStorage.getItem("NameStudent");

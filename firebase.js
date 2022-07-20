@@ -157,8 +157,8 @@ export const deleteDocument = (reference, document) => {
   });
 };
 
-export const getDocument = (reference, document) => {
-  getDoc(doc(db, reference, document)).then((docSnap) => {
+export const getDocument = (reference, documents) => {
+  getDoc(doc(db, reference, documents)).then((docSnap) => {
     if (reference == "Companies") {
       window.localStorage.setItem("ImageCompany", docSnap.data().image);
       window.localStorage.setItem("CompanyCompany", docSnap.data().name);
@@ -171,6 +171,31 @@ export const getDocument = (reference, document) => {
       window.localStorage.setItem("ImageStudent", docSnap.data().image);
       window.localStorage.setItem("LevelStudent", docSnap.data().level);
       window.localStorage.setItem("GenderStudent", docSnap.data().gender);
+    } else if (reference == "Requests") {
+      docSnap.data().missions.forEach((miss) => {
+        document.getElementById("profile-mission").innerHTML += `
+            <article class="mission-card">
+              <h6 class="mission-title">Mission</h6>
+              <span class="mission-name">${miss.name}</span>
+              <span class="mission-date">${miss.date}</span>
+              <p class="mission-text">
+                ${miss.text}
+              </p>
+            </article>
+          `;
+      });
+      docSnap.data().remarks.forEach((rms) => {
+        document.getElementById("profile-remark").innerHTML += `
+            <article class="mission-card">
+              <h6 class="mission-title">Remarque</h6>
+              <span class="mission-name">${rms.name}</span>
+              <span class="mission-date">${rms.date}</span>
+              <p class="mission-text">
+                ${rms.text}
+              </p>
+            </article>
+          `;
+      });
     }
   });
 };
@@ -521,16 +546,19 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
           emailIntern = document.querySelectorAll(".input-desc span");
 
         remarkForm.forEach((rF, index) => {
-          let currDay = new Date().getDay();
-          let currMonth = new Date().getMonth();
-          let currYear = new Date().getFullYear();
-          var date = `${currDay}.${currMonth}.${currYear}`;
           rF.addEventListener("submit", (e) => {
             e.preventDefault();
             const remark = rF.elements["remark"].value;
+
+            const date = new Date();
+            let currMonth = date.getUTCMonth() + 1;
+            let currYear = date.getUTCFullYear();
+            let currDay = date.getUTCDate();
+
             updateDocument("Requests", emailIntern[index].id, {
               remarks: arrayUnion({
-                date: date,
+                name: window.localStorage.getItem("CompanyCompany"),
+                date: `${currDay}.${currMonth}.${currYear}`,
                 text: remark,
               }),
             });
@@ -538,20 +566,19 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
         });
 
         missionForm.forEach((mF, index) => {
-          let currDay = new Date().getDay();
-          let currMonth = new Date().getMonth();
-          let currYear = new Date().getFullYear();
-          var date = `${currDay}.${currMonth}.${currYear}`;
+          const date = new Date();
+          let currMonth = date.getUTCMonth() + 1;
+          let currYear = date.getUTCFullYear();
+          let currDay = date.getUTCDate();
           mF.addEventListener("submit", (e) => {
             e.preventDefault();
             const mission = mF.elements["mission"].value;
             updateDocument("Requests", emailIntern[index].id, {
-              missions: [
-                {
-                  date: date,
-                  text: mission,
-                },
-              ],
+              missions: arrayUnion({
+                name: window.localStorage.getItem("CompanyCompany"),
+                date: `${currDay}.${currMonth}.${currYear}`,
+                text: mission,
+              }),
             });
           });
         });
@@ -594,12 +621,12 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
 
         accept.forEach((ac) => {
           ac.addEventListener("click", () => {
-            let currDay = new Date().getDay();
-            let currMonth = new Date().getMonth();
-            let currYear = new Date().getFullYear();
-            var date = `${currDay}.${currMonth}.${currYear}`;
+            const date = new Date();
+            let currMonth = date.getUTCMonth() + 1;
+            let currYear = date.getUTCFullYear();
+            let currDay = date.getUTCDate();
             updateDocument("Requests", ac.id, {
-              date: date,
+              date: `${currDay}.${currMonth}.${currYear}`,
               status: true,
               companyEmail: deleteField(),
               company: window.localStorage.getItem("CompanyCompany"),
