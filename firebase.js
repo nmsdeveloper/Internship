@@ -135,15 +135,10 @@ export const resetPassword = (email) => {
 };
 
 /* Firestore */
-export const setDocument = (reference, document, data, updateCompany = {}) => {
+export const setDocument = (reference, document, data, update = {}) => {
   setDoc(doc(db, reference, document), data).then(() => {
-    if (reference == "Companies")
-      setFile(
-        updateCompany.folder,
-        updateCompany.filename,
-        updateCompany.file,
-        data.email
-      );
+    if (reference == "Companies") setFile(update, data.email);
+    else if (reference == "Files") setFile(update, data.email);
     else window.location.reload();
   });
 };
@@ -797,6 +792,32 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
               companyEmail: deleteField(),
               company: window.localStorage.getItem("CompanyCompany"),
             });
+            setDocument("Files", ac.id, {
+              rapport: {
+                filename: "",
+                fileUrl: "",
+                date: "",
+                name: "",
+                surname: "",
+                email: "",
+              },
+              resume: {
+                filename: "",
+                fileUrl: "",
+                date: "",
+                name: "",
+                surname: "",
+                email: "",
+              },
+              file: {
+                filename: "",
+                fileUrl: "",
+                date: "",
+                name: "",
+                surname: "",
+                email: "",
+              },
+            });
           });
         });
 
@@ -811,24 +832,61 @@ export const getQueryWhere = (reference, field, value, slide = "") => {
 };
 
 /* Storage */
-export const setFile = (folder, filename, file, email = "") => {
+export const setFile = (dataFile, email = "") => {
   const uploadTask = uploadBytesResumable(
-    ref(storage, `${folder}/${filename}`),
-    file
+    ref(storage, `${dataFile.folder}/${dataFile.filename}`),
+    dataFile.file
   );
 
   uploadTask.on(
     "state_changed",
     (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
-      switch (snapshot.state) {
-        case "paused":
-          console.log("Upload is paused");
-          break;
-        case "running":
-          console.log("Upload is running");
-          break;
+      if (dataFile.folder != "CompanyLogo") {
+        const progressArea = document.getElementById(dataFile.progress),
+          uploadedArea = document.getElementById(dataFile.uploaded);
+
+        let fileLoaded = Math.floor(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        let fileTotal = Math.floor(snapshot.totalBytes / 1000);
+        let fileSize;
+        fileTotal < 1024
+          ? (fileSize = fileTotal + " KB")
+          : (fileSize =
+              (snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB");
+        let progressHTML = `
+          <li class="row">
+            <i class="fas fa-file-alt"></i>
+            <div class="content">
+              <div class="details">
+                <span class="name">${dataFile.filename} • Uploading</span>
+                <span class="percent">${fileLoaded}%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: ${fileLoaded}%"></div>
+              </div>
+            </div>
+          </li>
+        `;
+        uploadedArea.classList.add("onprogress");
+        progressArea.innerHTML = progressHTML;
+        if (snapshot.bytesTransferred == snapshot.totalBytes) {
+          progressArea.innerHTML = "";
+          let uploadedHTML = `
+            <li class="row">
+              <div class="content upload">
+                <i class="fas fa-file-alt"></i>
+                <div class="details">
+                  <span class="name">${dataFile.filename} • Uploaded</span>
+                  <span class="size">${fileSize}</span>
+                </div>
+              </div>
+              <i class="fas fa-check"></i>
+            </li>
+          `;
+          uploadedArea.classList.remove("onprogress");
+          uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+        }
       }
     },
     (error) => {
@@ -839,10 +897,53 @@ export const setFile = (folder, filename, file, email = "") => {
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        const data = {
-          image: downloadURL,
-        };
-        if (folder == "CompanyLogo") updateDocument("Companies", email, data);
+        if (dataFile.folder == "CompanyLogo") {
+          const data = {
+            image: downloadURL,
+          };
+          updateDocument("Companies", email, data);
+        } else {
+          if (dataFile.folder == "Rapport")
+            updateDoc(doc(db, "Files", email), {
+              rapport: arrayUnion({
+                filename: `${dataFile.filename}-${dataFile.date}`,
+                fileUrl: downloadURL,
+                date: dataFile.date,
+                name: dataFile.name,
+                surname: dataFile.surname,
+                email: email,
+              }),
+            }).then(() => {
+              window.location.reload();
+            });
+          else if (dataFile.folder == "Resume")
+            updateDoc(doc(db, "Files", email), {
+              resume: arrayUnion({
+                filename: `${dataFile.filename}-${dataFile.date}`,
+
+                fileUrl: downloadURL,
+                date: dataFile.date,
+                name: dataFile.name,
+                surname: dataFile.surname,
+                email: email,
+              }),
+            }).then(() => {
+              window.location.reload();
+            });
+          else if (dataFile.folder == "Fichier")
+            updateDoc(doc(db, "Files", email), {
+              file: arrayUnion({
+                filename: `${dataFile.filename}-${dataFile.date}`,
+                fileUrl: downloadURL,
+                date: dataFile.date,
+                name: dataFile.name,
+                surname: dataFile.surname,
+                email: email,
+              }),
+            }).then(() => {
+              window.location.reload();
+            });
+        }
       });
     }
   );
